@@ -1,4 +1,4 @@
-## `data` Object — Field Descriptions
+## `Marketdata API Json result` — Field Descriptions
 
 ### `bseStatus`
 - **Type:** `string`
