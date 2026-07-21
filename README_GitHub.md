@@ -12,8 +12,8 @@ The following fields are returned under the `result.data` object.
 
   |`scripCode`   |       String  |     BSE Scrip Code.     |          `new_mapping.SCRIPCODE`|
 
-  |`pan`    |            String  |     PAN supplied in the API    |   Request Parameter|
-                                    request.
+  |`pan`    |            String  |     PAN supplied in the API      Request Parameter|
+                                    request.|
 
   |`symbol`    |         String     |  Trading symbol. Falls back to |`new_mapping.SYMBOL`|
                                     `ace_company_master.symbol`
