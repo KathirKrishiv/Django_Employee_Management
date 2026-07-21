@@ -79,16 +79,14 @@ ace_equity	    fincode	        price_date (Ascending)	 Latest (price_date)
 `faceValueDate`	Date	Date corresponding to the face value information.	price_date
 
 ---
-# 52WeekHL
+## 52WeekHL
 
 **Description:**
 The `52WeekHL` object contains the company's **52-week High and Low prices** for both the **Bombay Stock Exchange (BSE)** and the **National Stock Exchange (NSE)**.
 
 The data is retrieved from the `ace_52whl` table.
 
----
-
-## Source
+### Source
 
 | Source Table | Primary Lookup | Fallback Lookup |
 |--------------|----------------|-----------------|
@@ -100,9 +98,8 @@ If the `scripCode` is not available, the API retrieves the data using:
 |--------------|----------------|-----------------|
 | `ace_52whl` | `fincode` | `symbol` |
 
----
 
-## Response Structure
+### Response Structure
 
 | Field | Type | Description | Source Column |
 |------|------|-------------|---------------|
@@ -115,13 +112,12 @@ If the `scripCode` is not available, the API retrieves the data using:
 | `nseLow` | Number / String | Lowest price traded on NSE during the last 52 weeks. | `nse_low` |
 | `nseLowDate` | Date | Date on which the 52-week low was recorded on NSE. | `nse_lowdate` |
 
----
 
-# Retrieval Logic
+### Retrieval Logic
 
 The API follows the lookup sequence below.
 
-### Case 1 - Scrip Code Available
+#### Case 1 - Scrip Code Available
 
 ```
 Lookup ace_52whl using:
@@ -130,9 +126,8 @@ Lookup ace_52whl using:
 2. If no record is found, lookup using symbol
 ```
 
----
 
-### Case 2 - Scrip Code Not Available
+#### Case 2 - Scrip Code Not Available
 
 ```
 Lookup ace_52whl using:
@@ -147,13 +142,10 @@ If a record is found:
 - `symbol` is updated from `ace_52whl.symbol`.
 - `bseStatus` is refreshed using the retrieved `scripCode`.
 
----
-
 # Null Handling
 
 If no matching record is found or an exception occurs, the API returns Null:
 
----
 
 ## Notes
 
