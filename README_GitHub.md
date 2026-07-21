@@ -16,7 +16,7 @@ The following fields are returned under the `result.data` object.
 
 ---
 
-### bseStatus
+## `bseStatus`
 
 | Property | Value |
 |----------|-------|
@@ -29,7 +29,7 @@ The following fields are returned under the `result.data` object.
 
 ---
 
-### nseStatus
+## `nseStatus`
 
 | Property | Value |
 |----------|-------|
@@ -41,7 +41,7 @@ The following fields are returned under the `result.data` object.
 | Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
 ---
 
-### `EquityData`
+## `EquityData`
 - **Type:** `object`
 - **Description:** The EquityData object contains the latest available equity market information for the company. The data is retrieved from the ace_equity table using the company's FINCODE.
   If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
@@ -152,7 +152,7 @@ If no matching record is found or an exception occurs, the API returns Null:
 
 ---
 
-# MarketCapitalData
+## MarketCapitalData
 
 The `MarketCapitalData` object provides the company's latest **Market Capitalization** details based on the most recent equity record available in the `ace_equity` table.
 
@@ -204,13 +204,13 @@ If the exchange is unavailable or contains any other value, the API returns `"Nu
 
 ---
 
-#### Null Handling
+### Null Handling
 
 If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null:
 
 ---
 
-#### Notes
+### Notes
 
 - Market capitalization is retrieved from the `ace_equity.mcap` column.
 - The value is converted from its stored unit into **Crores** by dividing it by **10,000,000**.
