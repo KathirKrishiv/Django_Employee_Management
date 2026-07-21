@@ -69,9 +69,8 @@ The following fields are returned under the `result.data` object.
 ## 52WeekHL
 
 **Description:**
-The `52WeekHL` object contains the company's **52-week High and Low prices** for both the **Bombay Stock Exchange (BSE)** and the **National Stock Exchange (NSE)**.
-
-The data is retrieved from the `ace_52whl` table.
+- The `52WeekHL` object contains the company's **52-week High and Low prices** for both the **Bombay Stock Exchange (BSE)** and the **National Stock Exchange (NSE)**.
+- The data is retrieved from the `ace_52whl` table.
 
 ### Source
 
@@ -145,9 +144,10 @@ If no matching record is found or an exception occurs, the API returns Null:
 
 ## MarketCapitalData
 
-The `MarketCapitalData` object provides the company's latest **Market Capitalization** details based on the most recent equity record available in the `ace_equity` table.
+**Description:**
+- The `MarketCapitalData` object provides the company's latest **Market Capitalization** details based on the most recent equity record available in the `ace_equity` table.
 
-The data is retrieved using the company's **FINCODE**.
+- The data is retrieved using the company's **FINCODE**.
 
 
 ### Source
