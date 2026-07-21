@@ -106,7 +106,7 @@ The API follows the lookup sequence below.
 #### Case 1 - Scrip Code Available
 
 ```
-Lookup ace_52whl using:
+Lookup table - ace_52whl using:
 
 1. scripcode
 2. If no record is found, lookup using symbol
@@ -116,7 +116,7 @@ Lookup ace_52whl using:
 #### Case 2 - Scrip Code Not Available
 
 ```
-Lookup ace_52whl using:
+Lookup table - ace_52whl using:
 
 1. fincode
 2. If no record is found, lookup using symbol
