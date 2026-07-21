@@ -142,12 +142,12 @@ If a record is found:
 - `symbol` is updated from `ace_52whl.symbol`.
 - `bseStatus` is refreshed using the retrieved `scripCode`.
 
-# Null Handling
+### Null Handling
 
 If no matching record is found or an exception occurs, the API returns Null:
 
 
-## Notes
+### Notes
 
 - All dates are returned in **YYYY-MM-DD** format.
 - Database `NULL` values are returned as the string `"Null"`.
