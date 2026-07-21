@@ -64,9 +64,9 @@ The following fields are returned under the `result.data` object.
 
 
 **Source:**
-Source Table	Lookup Column	Sort Column	             Selected Record
---------------- --------------  ------------             -----------------
-ace_equity	    fincode	        price_date (Ascending)	 Latest (price_date)
+|Source Table	|Lookup Column	|Sort Column	  |           Selected Record|
+|-------------|-------------- |------------    |         -----------------|
+|ace_equity	  |  fincode	    | price_date (Ascending)	| Latest (price_date)|
 
 **Fields:**
 `Field`	    Type	Description	Source Column
