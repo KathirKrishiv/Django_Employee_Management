@@ -48,7 +48,7 @@ The following fields are returned under the `result.data` object.
   - If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
 
 
-**Source:**
+### Source
 |Source Table	|Lookup Column	|Sort Column	  |           Selected Record|
 |-------------|-------------- |------------    |         -----------------|
 |ace_equity	  |  fincode	    | price_date (Ascending)	| Latest (price_date)|
