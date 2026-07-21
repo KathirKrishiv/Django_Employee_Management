@@ -1,4 +1,4 @@
-# Company Information
+# Marketdata API Result
 
 The following fields are returned under the `result.data` object.
 
