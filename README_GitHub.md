@@ -158,17 +158,15 @@ The `MarketCapitalData` object provides the company's latest **Market Capitaliza
 
 The data is retrieved using the company's **FINCODE**.
 
----
 
-## Source
+### Source
 
 | Source Table | Lookup Column |
 |--------------|---------------|
 | `ace_equity` | `fincode` |
 
----
 
-## Response Structure
+### Response Structure
 
 | Field | Type | Description | Source Column |
 |------|------|-------------|---------------|
@@ -176,9 +174,8 @@ The data is retrieved using the company's **FINCODE**.
 | `stkExchange` | String | Stock exchange associated with the market capitalization record. | `stk_exchange` |
 | `tradeDate` | Date | Date on which the market capitalization value was recorded. | `price_date` |
 
----
 
-# Retrieval Logic
+### Retrieval Logic
 
 1. Retrieve the equity records from `ace_equity` using the company's **FINCODE**.
 2. Use the same equity record selected for the `EquityData` section.
@@ -196,7 +193,7 @@ Market Capitalization (Crores) = mcap / 10,000,000
 
 ---
 
-# Exchange Logic
+### Exchange Logic
 
 The `MarketCapitalData` object is populated only when the stock exchange obtained from `EquityData.stkExchange` is either:
 
@@ -207,13 +204,13 @@ If the exchange is unavailable or contains any other value, the API returns `"Nu
 
 ---
 
-# Null Handling
+#### Null Handling
 
 If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null:
 
 ---
 
-## Notes
+#### Notes
 
 - Market capitalization is retrieved from the `ace_equity.mcap` column.
 - The value is converted from its stored unit into **Crores** by dividing it by **10,000,000**.
