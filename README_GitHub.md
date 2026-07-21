@@ -31,7 +31,7 @@ The following fields are returned under the `result.data` object.
 ### bseStatus
 
   |Property         | Value|
-  ----------------- ---------------------------------------------
+  |----------------- |---------------------------------------------|
   |Type|              String|
   |Description  |     Current BSE listing status of the security.|
   |Source Table |     `ace_company_master`|
