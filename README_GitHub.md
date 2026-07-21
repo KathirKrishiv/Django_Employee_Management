@@ -14,7 +14,7 @@ The following fields are returned under the `result.data` object.
 | `nameofTheCompany` | String | Official name of the company. | `new_mapping.COMPNAME` |
 | `scripCode` | String | BSE Scrip Code. | `new_mapping.SCRIPCODE` |
 | `pan` | String | PAN supplied in the API request. | Request Parameter |
-| `symbol` | String | Trading symbol. Falls back to `new_mapping.SYMBOL` and `ace_company_master.symbol` if unavailable. | `new_mapping.SYMBOL`, `ace_company_master.symbol` |
+| `symbol` | String | Trading symbol. Retrieved from new_mapping.SYMBOL; if unavailable, the value is retrieved from ace_company_master.symbol. | `new_mapping.SYMBOL`, `ace_company_master.symbol` |
 | `isin` | String | ISIN of the company. | `new_mapping.ISIN` |
 | `listedWith` | String | Exchange(s) where the company is listed (`BSE`, `NSE`, `BSE & NSE`, `Null`). | Derived from `new_mapping.Bse_sublisting` and `new_mapping.Nse_sublisting` |
 
