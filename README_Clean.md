@@ -26,7 +26,6 @@ The following fields are returned under the `result.data` object.
                                     `BSE & NSE`, `Null`).         and
                                                                   `new_mapping.Nse_sublisting`
   ----------------------------------------------------------------------------------------------
----
 
 ### bseStatus
 
