@@ -2,7 +2,7 @@
 
 The following fields are returned under the `result.data` object.
 
-## Directly Retrieved Data
+## Directly Retrieved Data's
 
 **Source Table:** `new_mapping`  
 **Lookup Fields:** `PAN`, `priority`
