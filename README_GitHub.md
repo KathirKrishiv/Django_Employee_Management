@@ -182,8 +182,6 @@ Market Capitalization (Crores) = mcap / 10,000,000
 
 5. Round the calculated value to **2 decimal places** before returning it in the response.
 
----
-
 ### Exchange Logic
 
 The `MarketCapitalData` object is populated only when the stock exchange obtained from `EquityData.stkExchange` is either:
@@ -193,13 +191,11 @@ The `MarketCapitalData` object is populated only when the stock exchange obtaine
 
 If the exchange is unavailable or contains any other value, the API returns `"Null"` for all fields.
 
----
 
 ### Null Handling
 
 If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null:
 
----
 
 ### Notes
 
