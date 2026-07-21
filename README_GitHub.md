@@ -15,9 +15,9 @@ The following fields are returned under the `result.data` object.
   |`pan`    |            String  |     PAN supplied in the API request.|     Request Parameter|
                                     
 
-  |`symbol`    |         String     |  Trading symbol. Falls back to |`new_mapping.SYMBOL`|
-                                    `ace_company_master.symbol`
-                                    if unavailable.|
+  |`symbol`    |         String     |  Trading symbol. Falls back to   `ace_company_master.symbol`
+                                    if unavailable.| `new_mapping.SYMBOL`|
+                                  
 
   |`isin` |              String    |   ISIN of the company.     |     `new_mapping.ISIN`|
 
