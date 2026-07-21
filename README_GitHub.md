@@ -6,7 +6,7 @@ The following fields are returned under the `result.data` object.
 **Lookup Fields:** `PAN`, `priority`
 
   ----------------------------------------------------------------------------------------------
-  Field                Type         Description                   Source
+  Field              | Type      |   Description                |   Source
   -------------------- ------------ ----------------------------- ------------------------------
   `nameofTheCompany`   String       Official name of the company. `new_mapping.COMPNAME`
 
