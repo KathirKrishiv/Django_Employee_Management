@@ -6,38 +6,38 @@ The following fields are returned under the `result.data` object.
 **Lookup Fields:** `PAN`, `priority`
 
   ----------------------------------------------------------------------------------------------
-  Field              | Type      |   Description                |   Source
+  | Field              | Type      |   Description                |   Source |
   -------------------- ------------ ----------------------------- ------------------------------
-  `nameofTheCompany`   String       Official name of the company. `new_mapping.COMPNAME`
+  |`nameofTheCompany`|   String   |    Official name of the company. | `new_mapping.COMPNAME` |
 
-  `scripCode`          String       BSE Scrip Code.               `new_mapping.SCRIPCODE`
+  |`scripCode`   |       String  |     BSE Scrip Code.     |          `new_mapping.SCRIPCODE`|
 
-  `pan`                String       PAN supplied in the API       Request Parameter
+  |`pan`    |            String  |     PAN supplied in the API    |   Request Parameter|
                                     request.
 
-  `symbol`             String       Trading symbol. Falls back to `new_mapping.SYMBOL`
+  |`symbol`    |         String     |  Trading symbol. |Falls back to `new_mapping.SYMBOL`
                                     `ace_company_master.symbol`
-                                    if unavailable.
+                                    if unavailable.|
 
-  `isin`               String       ISIN of the company.          `new_mapping.ISIN`
+  |`isin` |              String    |   ISIN of the company.     |     `new_mapping.ISIN`|
 
-  `listedWith`         String       Exchange(s) where the company Derived from
+  |`listedWith`  |       String    |   Exchange(s) where the company Derived from
                                     is listed (`BSE`, `NSE`,      `new_mapping.Bse_sublisting`
-                                    `BSE & NSE`, `Null`).         and
-                                                                  `new_mapping.Nse_sublisting`
+                                    `BSE & NSE`, `Null`).   |      and
+                                                                  `new_mapping.Nse_sublisting`|
   ----------------------------------------------------------------------------------------------
 ---
 
 ### bseStatus
 
-  Property          Value
+  |Property         | Value|
   ----------------- ---------------------------------------------
-  Type              String
-  Description       Current BSE listing status of the security.
-  Source Table      `ace_company_master`
-  Lookup Column     `scripcode`
-  Returned Column   `bse_sublisting`
-  Possible Values   `Active`, `Suspended`, `Delisted`, `Null`
+  |Type|              String|
+  |Description  |     Current BSE listing status of the security.|
+  |Source Table |     `ace_company_master`|
+  |Lookup Column |    `scripcode`|
+  |Returned Column |  `bse_sublisting`|
+  |Possible Values|   `Active`, `Suspended`, `Delisted`, `Null`|
 
 
 ------------------------------------------------------------------------
