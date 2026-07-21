@@ -7,7 +7,7 @@ The following fields are returned under the `result.data` object.
 
   ----------------------------------------------------------------------------------------------
   | Field              | Type      |   Description                |   Source |
-  -------------------- ------------ ----------------------------- ------------------------------
+  |-------------------- |------------| ----------------------------- |------------------------------|
   |`nameofTheCompany`|   String   |    Official name of the company. | `new_mapping.COMPNAME` |
 
   |`scripCode`   |       String  |     BSE Scrip Code.     |          `new_mapping.SCRIPCODE`|
