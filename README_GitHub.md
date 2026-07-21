@@ -68,6 +68,74 @@ The following fields are returned under the `result.data` object.
 | `pe` | Number / String | Trailing Twelve Months (TTM) Price-to-Earnings ratio. Returns `"Null"` if unavailable. | `ttmpe` |
 | `faceValue` | Number / String | Face value of the equity share. | `fv` |
 | `faceValueDate` | Date | Date corresponding to the face value information. | `price_date` |
+
+### Retrieval Logic
+
+The API retrieves the latest available equity information for the company using the company's **FINCODE**.
+
+#### Step 1 - Retrieve Equity Records
+
+```
+Lookup table - ace_equity using:
+
+1. fincode
+```
+
+#### Step 2 - Select Latest Record
+
+```
+If one or more records are found:
+
+1. Sort the records by `price_date` in ascending order.
+2. Select the most recent record (latest `price_date`).
+```
+
+#### Step 3 - Populate EquityData
+
+The following fields are populated from the selected record:
+
+- `clsPric` ← `price`
+- `stkExchange` ← `stk_exchange`
+- `tradeDate` ← `price_date` (returned in `YYYY-MM-DD` format)
+- `pe` ← `ttmpe`
+- `faceValue` ← `fv`
+- `faceValueDate` ← `price_date` (returned in `YYYY-MM-DD` format)
+
+#### Step 4 - Update Listing Exchange
+
+Based on the retrieved stock exchange:
+
+- If `stkExchange` is `BSE`, `listedWith` is updated to `BSE`.
+- If `stkExchange` is `NSE`, `listedWith` is updated to `NSE`.
+
+---
+
+### Null Handling
+
+If no matching equity record is found or an exception occurs:
+
+- `clsPric` = `"Null"`
+- `stkExchange` = `"Null"`
+- `tradeDate` = `"Null"`
+- `pe` = `"Null"`
+- `faceValue` = `"Null"`
+- `faceValueDate` = `"Null"`
+
+If the latest record exists but the `ttmpe` value is `NULL` in the database:
+
+- `pe` is returned as `"Null"`.
+
+---
+
+### Notes
+
+- Equity data is retrieved from the `ace_equity` table using the company's **FINCODE**.
+- If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the latest available record.
+- `tradeDate` and `faceValueDate` are derived from `price_date` and returned in **YYYY-MM-DD** format.
+- The `listedWith` field is updated based on the value of `stkExchange`.
+- Database `NULL` values are returned as the string `"Null"`.
+- Any unexpected exception during retrieval results in `"Null"` values for the corresponding fields.
+- 
 ---
 
 ## 52WeekHL
@@ -134,7 +202,7 @@ If a record is found:
 
 ### Null Handling
 
-If no matching record is found or an exception occurs, the API returns Null:
+If no matching record is found or an exception occurs, the API returns Null for all fields:
 
 
 ### Notes
@@ -198,7 +266,7 @@ If the exchange is unavailable or contains any other value, the API returns `"Nu
 
 ### Null Handling
 
-If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null:
+If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null for all fields:
 
 
 ### Notes
