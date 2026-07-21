@@ -60,8 +60,7 @@ The following fields are returned under the `result.data` object.
 ### `EquityData`
 - **Type:** `object`
 - **Description:** The EquityData object contains the latest available equity market information for the company. The data is retrieved from the ace_equity table using the company's FINCODE.
-
-If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
+  If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
 
 
 **Source:**
