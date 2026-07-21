@@ -5,6 +5,8 @@ The following fields are returned under the `result.data` object.
 **Source Table:** `new_mapping`  
 **Lookup Fields:** `PAN`, `priority`
 
+### Response Structure
+
 | Field | Type     | Description | Source |
 |-------|----------|-------------|--------|
 | `nameofTheCompany` | String | Official name of the company. | `new_mapping.COMPNAME` |
