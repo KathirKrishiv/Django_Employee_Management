@@ -54,7 +54,7 @@ The following fields are returned under the `result.data` object.
 |ace_equity	  |  fincode	    | price_date (Ascending)	| Latest (price_date)|
 
 
-**Fields:**
+### Response Structure
 
 | Field | Type | Description | Source Column |
 |-------|------|-------------|---------------|
