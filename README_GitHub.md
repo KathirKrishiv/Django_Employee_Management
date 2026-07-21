@@ -7,7 +7,7 @@ The following fields are returned under the `result.data` object.
 
   ----------------------------------------------------------------------------------------------
   | Field              | Type      |   Description                |   Source |
-  |-------------------- |------------| ----------------------------- |------------------------------|
+  |------------------- |------------| ----------------------------- |------------------------------|
   |`nameofTheCompany`|   String   |    Official name of the company. | `new_mapping.COMPNAME` |
 
   |`scripCode`   |       String  |     BSE Scrip Code.     |          `new_mapping.SCRIPCODE`|
@@ -15,16 +15,17 @@ The following fields are returned under the `result.data` object.
   |`pan`    |            String  |     PAN supplied in the API    |   Request Parameter|
                                     request.
 
-  |`symbol`    |         String     |  Trading symbol. |Falls back to `new_mapping.SYMBOL`
+  |`symbol`    |         String     |  Trading symbol. Falls back to |`new_mapping.SYMBOL`|
                                     `ace_company_master.symbol`
                                     if unavailable.|
 
   |`isin` |              String    |   ISIN of the company.     |     `new_mapping.ISIN`|
 
-  |`listedWith`  |       String    |   Exchange(s) where the company Derived from
+  |`listedWith`  |       String    |   Exchange(s) where the company 
+                                      Derived from
                                     is listed (`BSE`, `NSE`,      `new_mapping.Bse_sublisting`
                                     `BSE & NSE`, `Null`).   |      and
-                                                                  `new_mapping.Nse_sublisting`|
+                                                                  `new_mapping.Nse_sublisting` |
   ----------------------------------------------------------------------------------------------
 ---
 
