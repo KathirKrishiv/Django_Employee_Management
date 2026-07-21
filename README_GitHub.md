@@ -5,8 +5,8 @@ The following fields are returned under the `result.data` object.
 **Source Table:** `new_mapping`  
 **Lookup Fields:** `PAN`, `priority`
 
-| Field | Type | Description | Source |
-|-------|------|-------------|--------|
+| Field | Type     | Description | Source |
+|-------|----------|-------------|--------|
 | `nameofTheCompany` | String | Official name of the company. | `new_mapping.COMPNAME` |
 | `scripCode` | String | BSE Scrip Code. | `new_mapping.SCRIPCODE` |
 | `pan` | String | PAN supplied in the API request. | Request Parameter |
