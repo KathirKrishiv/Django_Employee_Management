@@ -66,16 +66,6 @@ The following fields are returned under the `result.data` object.
 | `faceValueDate` | Date | Date corresponding to the face value information. | `price_date` |
 ---
 
-**Fields:**
-`Field`	    Type	Description	Source Column
-`clsPric`	Number / String	Latest closing market price of the equity. Returns "Null" if unavailable.	price
-`stkExchange`	String	Stock exchange on which the latest equity price was recorded (BSE/NSE).	stk_exchange
-`tradeDate`	Date	Trade date corresponding to the latest closing price.	price_date
-`pe`	Number / String	Trailing Twelve Months (TTM) Price-to-Earnings ratio. Returns "Null" if unavailable.	ttmpe
-`faceValue`	Number / String	Face value of the equity share.	fv
-`faceValueDate`	Date	Date corresponding to the face value information.	price_date
-
----
 ## 52WeekHL
 
 **Description:**
