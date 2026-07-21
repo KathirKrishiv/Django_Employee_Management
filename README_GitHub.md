@@ -16,33 +16,6 @@ The following fields are returned under the `result.data` object.
 
 ---
 
-**Source Table:** `new_mapping`\
-**Lookup Fields:** `PAN`, `priority`
-
-  ----------------------------------------------------------------------------------------------
-  | Field              | Type      |   Description                |   Source |
-  |------------------- |------------| ----------------------------- |------------------------------|
-  |`nameofTheCompany`|   String   |    Official name of the company. | `new_mapping.COMPNAME` |
-
-  |`scripCode`   |       String  |     BSE Scrip Code.     |          `new_mapping.SCRIPCODE`|
-
-  |`pan`    |            String  |     PAN supplied in the API request.|     Request Parameter|
-                                    
-
-  |`symbol`    |         String     |  Trading symbol. Falls back to   `ace_company_master.symbol`
-                                    if unavailable.| `new_mapping.SYMBOL`|
-                                  
-
-  |`isin` |              String    |   ISIN of the company.     |     `new_mapping.ISIN`|
-
-  |`listedWith`  |       String    |   Exchange(s) where the company 
-                                      Derived from
-                                    is listed (`BSE`, `NSE`,      `new_mapping.Bse_sublisting`
-                                    `BSE & NSE`, `Null`).   |      and
-                                                                  `new_mapping.Nse_sublisting` |
-  ----------------------------------------------------------------------------------------------
----
-
 ### bseStatus
 
   |Property         | Value|
