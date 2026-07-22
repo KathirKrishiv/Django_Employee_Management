@@ -25,7 +25,7 @@ The following fields are returned under the `result.data` object in Marketdata A
 | Property | Value |
 |----------|-------|
 | Type | String |
-| Description | Current BSE listing status of the security. |
+| Description |  Current BSE listing status of the security. |
 | Source Table | `ace_company_master` |
 | Lookup Column | `scripcode` |
 | Returned Column | `bse_sublisting` |
