@@ -291,7 +291,7 @@ If the market capitalization data is unavailable or an exception occurs while re
         If unavailable, the API falls back to Capitaline and ACE Balance
         Sheet data.
 
-## Source
+### Source
 
 The financial data is retrieved from multiple source tables using the following lookup and fallback sequence.
 
@@ -304,7 +304,7 @@ The financial data is retrieved from multiple source tables using the following 
 | `new_mapping` | `FINCODE`, `SCRIPCODE`, `ISIN` | — | Retrieves `CapitalineCode` |
 | `capitaline_new_download` | `CapitalineCode`, `NatureReport` | `YearEnd` (Descending) | Latest record |
 
-### Notes
+#### Source Notes
 
 - **S** = Standalone
 - **C** = Consolidated
