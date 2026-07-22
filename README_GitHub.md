@@ -274,3 +274,122 @@ If the market capitalization data is unavailable or an exception occurs while re
 - The result is rounded to **2 decimal places**.
 - The `tradeDate` is derived from `price_date` and returned in **YYYY-MM-DD** format.
 - Database `NULL` values are returned as the string `"Null"`.
+
+---
+
+## `FinancialResults`
+
+-   **Type:** `array<object>`
+-   **Description:**
+    -   The FinancialResults object contains the latest available
+        financial information for the company.
+    -   The API returns one or two records depending on data
+        availability:
+        -   **Standalone**
+        -   **Consolidated**
+    -   Financial data is primarily retrieved from NSE financial tables.
+        If unavailable, the API falls back to Capitaline and ACE Balance
+        Sheet data.
+
+## Source
+
+  -------------------------------------------------------------------------------------------------------------------------
+  Source Table                                                       Lookup Column     Sort Column     Selected Record
+  ------------------------------------------------------------------ ----------------- --------------- --------------------
+  ace_balancesheet_results_ind_as_format_data_merged_ace_financial   Fincode, nature   Date_End        Latest record
+                                                                     (S/C)             (Descending)    
+
+  ace_balancesheet_result_balancesheet                               FinCode, nature   Date_end        Latest record
+                                                                     (S/C)             (Descending)    
+
+  ace_balancesheet_result_cashflow                                   fincode, nature   Latest          Latest record
+                                                                     (S/C)             available       
+
+  ace_financial_cf                                                   fincode, type     year_end        Fallback
+                                                                     (S/C)             (Descending)    
+
+  new_mapping                                                        FINCODE,          ---             Retrieves
+                                                                     SCRIPCODE, ISIN                   CapitalineCode
+
+  capitaline_new_download                                            CapitalineCode,   YearEnd         Latest record
+                                                                     NatureReport      (Descending)    
+  -------------------------------------------------------------------------------------------------------------------------
+
+## Retrieval Logic
+
+### Step 1 - Retrieve Income Statement
+
+    Lookup:
+    ace_balancesheet_results_ind_as_format_data_merged_ace_financial
+
+    Filter:
+    1. Fincode
+    2. nature = 'S'
+    3. nature = 'C'
+
+    Sort by Date_End (Descending) and select latest record.
+
+### Step 2 - Retrieve Balance Sheet
+
+    Lookup:
+    ace_balancesheet_result_balancesheet
+
+    Filter:
+    1. FinCode
+    2. nature = 'S' / 'C'
+
+    Sort by Date_end (Descending) and select latest record.
+
+### Step 3 - Capitaline Fallback
+
+    Retrieve CapitalineCode using:
+    1. FINCODE
+    2. SCRIPCODE
+    3. ISIN
+
+    If found:
+    Lookup capitaline_new_download
+    Sort by YearEnd (Descending)
+    Select latest record.
+
+### Step 4 - Retrieve Cash Flow
+
+Priority: 1. ace_balancesheet_result_cashflow 2. ace_financial_cf
+
+### Step 5 - Financial Year
+
+Generated using `nse_financial_year_1()` by comparing YearEnd and
+Date_End. Supports 12-month and 15-month reporting periods.
+
+### Step 6 - Populate FinancialResults
+
+Returns: - Standalone - Consolidated
+
+If only one exists, only that object is returned.
+
+### Step 7 - Calculate YTD
+
+    ytd_calculations(fin_code, result)
+
+### Step 8 - Value Conversion
+
+-   Capitaline values × 10,000,000
+-   ACE values × 1,000,000
+-   EPS is not converted.
+
+## Null Handling
+
+-   If an exception occurs, every field is returned as `"Null"`.
+-   Database NULL values are returned as `"Null"`.
+-   If cash flow is unavailable, fallback is attempted.
+-   If financial year cannot be derived, `financialYear` is `"Null"`.
+
+## Notes
+
+-   Latest financial records are selected using Date_End.
+-   Cash flow uses fallback logic.
+-   Capitaline is used only when NSE data is unavailable.
+-   YTD values are calculated after retrieval.
+-   Numeric values are converted before returning.
+-   Database NULL values are returned as `"Null"`.
+
