@@ -418,7 +418,9 @@ The function:
   - Handles financial years longer than 12 months (including 15-month reporting periods).
   - Returns the financial year in the format:
     ```
-    01 Jul 2024 - 30 Jun 2025 or 01 Jan 2025 - 31 Dec 2025
+    01 Jul 2024 - 30 Jun 2025
+    or
+    01 Jan 2025 - 31 Dec 2025
     ```
     depending on the company's reporting cycle:
     
@@ -428,8 +430,8 @@ The API populates all quarterly, YTD, balance sheet, and cash flow fields from t
 
 When both Standalone and Consolidated records are available:
 
-```FinancialResults =
-
+```
+FinancialResults =
 [
    Standalone,
    Consolidated
@@ -439,6 +441,7 @@ When both Standalone and Consolidated records are available:
 If only one report exists, only that object is returned.
 
 #### Step 7 - Calculate YTD
+
 After data retrieval:
 
     ytd_calculations(fin_code, result)
