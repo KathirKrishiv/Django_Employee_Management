@@ -352,26 +352,26 @@ The API returns an array of objects. Each object contains the latest available f
 
 #### Step 1 - Retrieve Income Statement
 
-    Lookup:
-    ace_balancesheet_results_ind_as_format_data_merged_ace_financial
+Lookup:
+ace_balancesheet_results_ind_as_format_data_merged_ace_financial
 
     Filter:
     1. Fincode
     2. nature = 'S'
     3. nature = 'C'
 
-    Sort by Date_End (Descending) and select latest record.
+Sort by Date_End (Descending) and select latest record.
 
 #### Step 2 - Retrieve Balance Sheet
 
-    Lookup:
-    ace_balancesheet_result_balancesheet
+Lookup:
+ace_balancesheet_result_balancesheet
 
     Filter:
     1. FinCode
     2. nature = 'S' / 'C'
 
-    Sort by Date_End (Descending) and select latest record.
+Sort by Date_End (Descending) and select latest record.
 
 #### Step 3 - Capitaline Fallback
 
@@ -380,22 +380,22 @@ The API returns an array of objects. Each object contains the latest available f
     2. SCRIPCODE
     3. ISIN
 
-    If found:
-    Lookup capitaline_new_download
-    Sort by YearEnd (Descending)
-    Select latest record.
+If found:
+Lookup capitaline_new_download
+Sort by YearEnd (Descending)
+Select latest record.
 
 #### Step 4 - Retrieve Cash Flow
 
-Priority: 1. ace_balancesheet_result_cashflow 2. ace_financial_cf
-
 Cash flow information is retrieved in the following priority:
 
+```
   1. ace_balancesheet_result_cashflow
   
   If unavailable,
   
   2. ace_financial_cf
+```
    
 Cash flow values populate:
 
@@ -407,7 +407,7 @@ Cash flow values populate:
 
 #### Step 5 - Financial Year
 
-The financialYear field is generated using the nse_financial_year_1() function.
+The `financialYear` field is generated using the `nse_financial_year_1()` function.
 
 The function:
 
@@ -416,8 +416,11 @@ The function:
   - Falls back to Capitaline YearEnd.
   - Compares YearEnd with Date_End.
   - Handles financial years longer than 12 months (including 15-month reporting periods).
-  - Returns the financial year in the format depending on the company's reporting cycle:
-  - `01 Jul 2024 - 30 Jun 2025 or 01 Jan 2025 - 31 Dec 2025`
+  - Returns the financial year in the format:
+    ```
+    01 Jul 2024 - 30 Jun 2025 or 01 Jan 2025 - 31 Dec 2025
+    ```
+    depending on the company's reporting cycle:
     
 #### Step 6 - Populate FinancialResults
 
@@ -425,12 +428,13 @@ The API populates all quarterly, YTD, balance sheet, and cash flow fields from t
 
 When both Standalone and Consolidated records are available:
 
-FinancialResults =
+```FinancialResults =
 
 [
    Standalone,
    Consolidated
 ]
+```
 
 If only one report exists, only that object is returned.
 
@@ -443,15 +447,11 @@ is executed to populate all Year-To-Date (YTD) financial values.
 
 #### Step 8 - Value Conversion
 
--   Capitaline values × 10,000,000
--   ACE values × 1,000,000
--   EPS is not converted.
+Before returning the response:
 
-  Before returning the response:
-
-    - If data originates from `Capitaline`, numeric values are multiplied by `10,000,000`.
-    - Otherwise (ACE data), numeric values are multiplied by `1,000,000`.
-    - EPS values are returned without conversion.
+  - If data originates from `Capitaline`, numeric values are multiplied by `10,000,000`.
+  - Otherwise (ACE data), numeric values are multiplied by `1,000,000`.
+  - EPS values are returned without conversion.
 
 ### Null Handling
 
