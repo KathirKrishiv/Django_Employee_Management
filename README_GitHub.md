@@ -135,7 +135,7 @@ If the latest record exists but the `ttmpe` value is `NULL` in the database:
 - The `listedWith` field is updated based on the value of `stkExchange`.
 - Database `NULL` values are returned as the string `"Null"`.
 - Any unexpected exception during retrieval results in `"Null"` values for the corresponding fields.
-- 
+  
 ---
 
 ## 52WeekHL
