@@ -108,7 +108,6 @@ Based on the retrieved stock exchange:
 - If `stkExchange` is `BSE`, `listedWith` is updated to `BSE`.
 - If `stkExchange` is `NSE`, `listedWith` is updated to `NSE`.
 
----
 
 ### Null Handling
 
@@ -125,7 +124,6 @@ If the latest record exists but the `ttmpe` value is `NULL` in the database:
 
 - `pe` is returned as `"Null"`.
 
----
 
 ### Notes
 
