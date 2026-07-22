@@ -389,26 +389,69 @@ The API returns an array of objects. Each object contains the latest available f
 
 Priority: 1. ace_balancesheet_result_cashflow 2. ace_financial_cf
 
+Cash flow information is retrieved in the following priority:
+
+  1. ace_balancesheet_result_cashflow
+  
+  If unavailable,
+  
+  2. ace_financial_cf
+   
+Cash flow values populate:
+
+ - Operating Cash Flow
+ - Investing Cash Flow
+ - Financing Cash Flow
+ - Total Cash Flow
+ - Exchange Rate Adjustment
+
 #### Step 5 - Financial Year
 
-Generated using `nse_financial_year_1()` by comparing YearEnd and
-Date_End. Supports 12-month and 15-month reporting periods.
+The financialYear field is generated using the nse_financial_year_1() function.
 
+The function:
+
+  - Retrieves Year End information from ACE Balance Sheet.
+  - Falls back to ACE Financial Cash Flow.
+  - Falls back to Capitaline YearEnd.
+  - Compares YearEnd with Date_End.
+  - Handles financial years longer than 12 months (including 15-month reporting periods).
+  - Returns the financial year in the format depending on the company's reporting cycle:
+  - `01 Jul 2024 - 30 Jun 2025 or 01 Jan 2025 - 31 Dec 2025`
+    
 #### Step 6 - Populate FinancialResults
 
-Returns: - Standalone - Consolidated
+The API populates all quarterly, YTD, balance sheet, and cash flow fields from the selected latest records.
 
-If only one exists, only that object is returned.
+When both Standalone and Consolidated records are available:
+
+FinancialResults =
+
+[
+   Standalone,
+   Consolidated
+]
+
+If only one report exists, only that object is returned.
 
 #### Step 7 - Calculate YTD
+After data retrieval:
 
     ytd_calculations(fin_code, result)
+
+is executed to populate all Year-To-Date (YTD) financial values.
 
 #### Step 8 - Value Conversion
 
 -   Capitaline values × 10,000,000
 -   ACE values × 1,000,000
 -   EPS is not converted.
+
+  Before returning the response:
+
+    - If data originates from `Capitaline`, numeric values are multiplied by `10,000,000`.
+    - Otherwise (ACE data), numeric values are multiplied by `1,000,000`.
+    - EPS values are returned without conversion.
 
 ### Null Handling
 
