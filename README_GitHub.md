@@ -295,7 +295,7 @@ If the market capitalization data is unavailable or an exception occurs while re
 
   -------------------------------------------------------------------------------------------------------------------------
   |Source Table                         |                              Lookup Column  |   Sort Column  |   Selected Record|
-  ------------------------------------------------------------------ ----------------- --------------- --------------------
+  |------------------------------------------------------------------ |-----------------| --------------- |--------------------|
   |ace_balancesheet_results_ind_as_format_data_merged_ace_financial |  Fincode, nature   Date_End        Latest record|
                                                                      (S/C)      |       (Descending)  |  
 
