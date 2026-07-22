@@ -291,6 +291,28 @@ If the market capitalization data is unavailable or an exception occurs while re
         If unavailable, the API falls back to Capitaline and ACE Balance
         Sheet data.
 
+## Source
+
+The financial data is retrieved from multiple source tables using the following lookup and fallback sequence.
+
+| Source Table | Lookup Columns | Sort Order | Selected Record |
+|--------------|----------------|------------|-----------------|
+| `ace_balancesheet_results_ind_as_format_data_merged_ace_financial` | `FINCODE`, `nature (S/C)` | `Date_End` (Descending) | Latest record |
+| `ace_balancesheet_result_balancesheet` | `FINCODE`, `nature (S/C)` | `Date_End` (Descending) | Latest record |
+| `ace_balancesheet_result_cashflow` | `FINCODE`, `nature (S/C)` | Latest available | Latest record |
+| `ace_financial_cf` | `FINCODE`, `type (S/C)` | `year_end` (Descending) | Fallback record |
+| `new_mapping` | `FINCODE`, `SCRIPCODE`, `ISIN` | — | Retrieves `CapitalineCode` |
+| `capitaline_new_download` | `CapitalineCode`, `NatureReport` | `YearEnd` (Descending) | Latest record |
+
+### Notes
+
+- **S** = Standalone
+- **C** = Consolidated
+- The API first attempts to retrieve data from the ACE financial tables.
+- If cash flow data is unavailable in the primary source, it falls back to `ace_financial_cf`.
+- `new_mapping` is used to obtain the corresponding `CapitalineCode`.
+- `capitaline_new_download` is queried using the retrieved `CapitalineCode` to fetch the latest available financial data.
+
 ### Source
 
   -------------------------------------------------------------------------------------------------------------------------
@@ -314,6 +336,40 @@ If the market capitalization data is unavailable or an exception occurs while re
   |capitaline_new_download            |                                CapitalineCode,   YearEnd         Latest record|
                                                                      NatureReport  |    (Descending)  |  
   -------------------------------------------------------------------------------------------------------------------------
+
+  # Response Structure
+
+The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
+
+## Fields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. |
+| `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. |
+| `financialYear` | String | Financial year period derived using the available year-end information. |
+| `netSalesQuarterlyActualsCurrentQt` | Number / String | Quarterly Net Sales. |
+| `netSalesYtdActualsCurrentQt` | Number / String | Year-to-date Net Sales. |
+| `otherIncomeQuarterlyActualsCurrentQt` | Number / String | Quarterly Other Income. |
+| `otherIncomeYtdActualsCurrentQt` | Number / String | Year-to-date Other Income. |
+| `epsQuarterlyActualsCurrentQt` | Number / String | Quarterly Earnings Per Share (EPS). |
+| `epsYtdActualsCurrentQt` | Number / String | Year-to-date Earnings Per Share (EPS). |
+| `patQuarterlyActualsCurrentQt` | Number / String | Quarterly Profit After Tax (PAT). |
+| `patYtdActualsCurrentQt` | Number / String | Year-to-date Profit After Tax (PAT). |
+| `taxQuarterlyActualsCurrentQt` | Number / String | Quarterly Tax Expense. |
+| `taxYtdActualsCurrentQt` | Number / String | Year-to-date Tax Expense. |
+| `interestQuarterlyActualsCurrentQt` | Number / String | Quarterly Interest Expense. |
+| `interestYtdActualsCurrentQt` | Number / String | Year-to-date Interest Expense. |
+| `depreciationAmortisationQuarterlyActualsCurrentQt` | Number / String | Quarterly Depreciation & Amortisation Expense. |
+| `depreciationAmortisationYtdActualsCurrentQt` | Number / String | Year-to-date Depreciation & Amortisation Expense. |
+| `netCashFromOperationsHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from operating activities. |
+| `netCashFromInvestingHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from investing activities. |
+| `netCashFromFinanceHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from financing activities. |
+| `totalCashFlowBeforeEffectOfExchangeRateChanges` | Number / String | Total cash flow before the effect of exchange rate changes. |
+| `effectOfExchangeRateChanges` | Number / String | Effect of exchange rate changes on cash and cash equivalents. |
+| `totalCashFlowAfterEffectOfExchangeRateChanges` | Number / String | Total cash flow after the effect of exchange rate changes. |
+| **Remaining Balance Sheet Fields** | Number / String | Includes balance sheet values such as Share Capital, Reserves, Borrowings, Assets, Liabilities, Investments, Cash & Cash Equivalents, Inventory, Trade Receivables, Trade Payables, and other balance sheet items. Returns `"Null"` when the corresponding value is unavailable. |
+
 
 ### Retrieval Logic
 
