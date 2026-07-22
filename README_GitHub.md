@@ -313,31 +313,8 @@ The financial data is retrieved from multiple source tables using the following 
 - `new_mapping` is used to obtain the corresponding `CapitalineCode`.
 - `capitaline_new_download` is queried using the retrieved `CapitalineCode` to fetch the latest available financial data.
 
-### Source
 
-  -------------------------------------------------------------------------------------------------------------------------
-  |Source Table                         |                              Lookup Column  |   Sort Column  |   Selected Record|
-  |------------------------------------------------------------------ |-----------------| --------------- |--------------------|
-  |ace_balancesheet_results_ind_as_format_data_merged_ace_financial |  Fincode, nature   Date_End        Latest record|
-                                                                     (S/C)      |       (Descending)  |  
-
-  |ace_balancesheet_result_balancesheet    |                           FinCode, nature   Date_end        Latest record|
-                                                                     (S/C)      |       (Descending)|    
-
-  |ace_balancesheet_result_cashflow          |                         fincode, nature   Latest          Latest record|
-                                                                     (S/C)    |         available  |     
-
-  |ace_financial_cf                          |                         fincode, type     year_end        Fallback|
-                                                                     (S/C)  |           (Descending)|    
-
-  |new_mapping                     |                                   FINCODE,          ---        |     Retrieves
-                                                                     SCRIPCODE, ISIN |                  CapitalineCode|
-
-  |capitaline_new_download            |                                CapitalineCode,   YearEnd         Latest record|
-                                                                     NatureReport  |    (Descending)  |  
-  -------------------------------------------------------------------------------------------------------------------------
-
-  # Response Structure
+### Response Structure
 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
@@ -394,7 +371,7 @@ The API returns an array of objects. Each object contains the latest available f
     1. FinCode
     2. nature = 'S' / 'C'
 
-    Sort by Date_end (Descending) and select latest record.
+Retrieve the latest Standalone and Consolidated records by sorting on Date_End in descending order.
 
 #### Step 3 - Capitaline Fallback
 
