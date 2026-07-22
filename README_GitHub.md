@@ -1,6 +1,6 @@
 # Marketdata API Result
 
-The following fields are returned under the `result.data` object.
+The following fields are returned under the `result.data` object in Marketdata API result.
 
 ## Directly Retrieved Data's
 
