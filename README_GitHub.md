@@ -371,7 +371,7 @@ The API returns an array of objects. Each object contains the latest available f
     1. FinCode
     2. nature = 'S' / 'C'
 
-Retrieve the latest Standalone and Consolidated records by sorting on Date_End in descending order.
+    Sort by Date_End (Descending) and select latest record.
 
 #### Step 3 - Capitaline Fallback
 
