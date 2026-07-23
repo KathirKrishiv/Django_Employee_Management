@@ -375,7 +375,11 @@ Sort by Date_End (Descending) and select latest record.
 
 #### Step 3 - Capitaline Fallback
 
-If NSE financial data is unavailable:
+If NSE financial data is available (`nse_flag = "True"`):
+
+- Retrieve the latest Balance Sheet data from `ace_balancesheet_result_balancesheet`.
+
+If NSE financial data is unavailable (`nse_flag = "False"`):
 
 Retrieve CapitalineCode using:
 
