@@ -385,6 +385,34 @@ Lookup capitaline_new_download
 Sort by YearEnd (Descending)
 Select latest record.
 
+If NSE financial data is unavailable:
+
+Retrieve CapitalineCode using:
+
+```
+1. FINCODE
+2. SCRIPCODE
+3. ISIN
+```
+
+If a CapitalineCode is found:
+
+```
+Lookup: capitaline_new_download
+
+Filter:
+
+1. CapitalineCode
+2. NatureReport (S/C)
+```
+
+- Sort by YearEnd descending.
+- Select the latest record.
+
+
+If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet data.
+
+
 #### Step 4 - Retrieve Cash Flow
 
 Cash flow information is retrieved in the following priority:
