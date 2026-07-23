@@ -381,7 +381,7 @@ If NSE financial data is available (`nse_flag = "True"`):
 
 If NSE financial data is unavailable (`nse_flag = "False"`):
 
-Retrieve CapitalineCode using:
+Retrieve `CapitalineCode` using the following lookup priority:
 
 ```
 Lookup: new_mapping
