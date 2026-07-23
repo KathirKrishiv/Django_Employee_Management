@@ -375,16 +375,6 @@ Sort by Date_End (Descending) and select latest record.
 
 #### Step 3 - Capitaline Fallback
 
-    Retrieve CapitalineCode using:
-    1. FINCODE
-    2. SCRIPCODE
-    3. ISIN
-
-If found:
-Lookup capitaline_new_download
-Sort by YearEnd (Descending)
-Select latest record.
-
 If NSE financial data is unavailable:
 
 Retrieve CapitalineCode using:
