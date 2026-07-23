@@ -384,6 +384,8 @@ If NSE financial data is unavailable (`nse_flag = "False"`):
 Retrieve CapitalineCode using:
 
 ```
+Lookup: new_mapping
+
 1. FINCODE
 2. SCRIPCODE
 3. ISIN
