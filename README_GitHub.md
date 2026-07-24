@@ -364,6 +364,10 @@ Sort by Date_End (Descending) and select latest record.
 
 #### Step 2 - Retrieve Balance Sheet
 
+If NSE financial data is available (`nse_flag = "True"`):
+
+- Retrieve the latest Balance Sheet data from `ace_balancesheet_result_balancesheet`.
+
 Lookup:
 ace_balancesheet_result_balancesheet
 
@@ -374,10 +378,6 @@ ace_balancesheet_result_balancesheet
 Sort by Date_End (Descending) and select latest record.
 
 #### Step 3 - Capitaline Fallback
-
-If NSE financial data is available (`nse_flag = "True"`):
-
-- Retrieve the latest Balance Sheet data from `ace_balancesheet_result_balancesheet`.
 
 If NSE financial data is unavailable (`nse_flag = "False"`):
 
