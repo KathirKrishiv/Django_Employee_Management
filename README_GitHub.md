@@ -357,8 +357,7 @@ ace_balancesheet_results_ind_as_format_data_merged_ace_financial
 
     Filter:
     1. Fincode
-    2. nature = 'S'
-    3. nature = 'C'
+    2. nature = 'S' / 'C'
 
 Sort by Date_End (Descending) and select latest record.
 
@@ -406,7 +405,7 @@ Filter:
 - Select the latest record.
 
 
-If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet data.
+If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet Result Balance Sheet data.
 
 
 #### Step 4 - Retrieve Cash Flow
