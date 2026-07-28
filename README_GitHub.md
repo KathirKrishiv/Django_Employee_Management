@@ -488,7 +488,7 @@ The function:
 - Calculates both **Quarterly** and **YTD** values based on the available financial result type (Quarterly, Half-Yearly, or Annual).
 - Updates the response with the calculated values.
 
-##### Updated Response Fields
+##### Profit & Loss Fields
 
 | Quarterly Field | YTD Field |
 |-----------------|-----------|
