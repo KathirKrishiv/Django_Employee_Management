@@ -323,7 +323,7 @@ The API returns an array of objects. Each object contains the latest available f
 ## Fields
 
 | Field | Type | Description | Transformation |
-|-------|------|-------------|
+|-------|------|-------------|----------------|
 | `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. | Derived |
 | `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. | Non-Derived |
 | `financialYear` | String | Financial year period derived using the available year-end information. | Derived |
