@@ -471,6 +471,42 @@ After data retrieval:
 
 is executed to populate all Year-To-Date (YTD) financial values.
 
+#### Step 7 – Calculate Year-To-Date (YTD) Values
+
+After the financial data is retrieved and added to the response, the API calls:
+
+```python
+ytd_calculations(fin_code, result)
+```
+
+This function calculates and populates the **Year-To-Date (YTD)** financial values for the latest available reporting period. The calculation is performed separately for both **Standalone** and **Consolidated** financial reports.
+
+The function:
+- Retrieves the latest financial year-end and reporting period using the company's **FINCODE**.
+- Identifies the current reporting quarter (Q1, Q2, Q3, or Q4).
+- Fetches the required financial records for the latest reporting period.
+- Calculates both **Quarterly** and **YTD** values based on the available financial result type (Quarterly, Half-Yearly, or Annual).
+- Updates the response with the calculated values.
+
+##### Updated Response Fields
+
+| Quarterly Field | YTD Field |
+|-----------------|-----------|
+| `netSalesQuarterlyActualsCurrentQt` | `netSalesYtdActualsCurrentQt` |
+| `otherIncomeQuarterlyActualsCurrentQt` | `otherIncomeYtdActualsCurrentQt` |
+| `epsQuarterlyActualsCurrentQt` | `epsYtdActualsCurrentQt` |
+| `patQuarterlyActualsCurrentQt` | `patYtdActualsCurrentQt` |
+| `taxQuarterlyActualsCurrentQt` | `taxYtdActualsCurrentQt` |
+| `interestQuarterlyActualsCurrentQt` | `interestYtdActualsCurrentQt` |
+| `depreciationAmortisationQuarterlyActualsCurrentQt` | `depreciationAmortisationYtdActualsCurrentQt` |
+
+##### Notes
+
+- YTD values are calculated using the latest available financial records.
+- Supports both **Standalone** and **Consolidated** financial reports.
+- The reporting quarter is determined automatically based on the financial year-end and reporting period.
+- If sufficient financial data is not available, the corresponding Quarterly and YTD fields remain `"Null"`.
+
 #### Step 8 - Value Conversion
 
 Before returning the response:
