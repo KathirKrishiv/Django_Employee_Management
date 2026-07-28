@@ -1,93 +1,148 @@
-# Company Information
+# Marketdata API Result
 
-The following fields are returned under the `result.data` object.
+The following fields are returned under the `result.data` object in Marketdata API result.
 
-**Source Table:** `new_mapping`\
+## Directly Retrieved Data's
+
+**Source Table:** `new_mapping`  
 **Lookup Fields:** `PAN`, `priority`
 
-  ----------------------------------------------------------------------------------------------
-  Field                Type         Description                   Source
-  -------------------- ------------ ----------------------------- ------------------------------
-  `nameofTheCompany`   String       Official name of the company. `new_mapping.COMPNAME`
+### Response Structure
 
-  `scripCode`          String       BSE Scrip Code.               `new_mapping.SCRIPCODE`
+| Field | Type     | Description | Source |
+|-------|----------|-------------|--------|
+| `nameofTheCompany` | String | Official name of the company. | `new_mapping.COMPNAME` |
+| `scripCode` | String | BSE Scrip Code. | `new_mapping.SCRIPCODE` |
+| `pan` | String | PAN supplied in the API request. | Request Parameter |
+| `symbol` | String | Trading symbol. Retrieved from new_mapping.SYMBOL; if unavailable, the value is retrieved from ace_company_master.symbol. | `new_mapping.SYMBOL`, `ace_company_master.symbol` |
+| `isin` | String | ISIN of the company. | `new_mapping.ISIN` |
+| `listedWith` | String | Exchange(s) where the company is listed (`BSE`, `NSE`, `BSE & NSE`, `Null`). | Derived from `new_mapping.Bse_sublisting` and `new_mapping.Nse_sublisting` |
 
-  `pan`                String       PAN supplied in the API       Request Parameter
-                                    request.                      
-
-  `symbol`             String       Trading symbol. Falls back to `new_mapping.SYMBOL`
-                                    `ace_company_master.symbol`   
-                                    if unavailable.               
-
-  `isin`               String       ISIN of the company.          `new_mapping.ISIN`
-
-  `listedWith`         String       Exchange(s) where the company Derived from
-                                    is listed (`BSE`, `NSE`,      `new_mapping.Bse_sublisting`
-                                    `BSE & NSE`, `Null`).         and
-                                                                  `new_mapping.Nse_sublisting`
-  ----------------------------------------------------------------------------------------------
-
-### bseStatus
-
-  Property          Value
-  ----------------- ---------------------------------------------
-  Type              String
-  Description       Current BSE listing status of the security.
-  Source Table      `ace_company_master`
-  Lookup Column     `scripcode`
-  Returned Column   `bse_sublisting`
-  Possible Values   `Active`, `Suspended`, `Delisted`, `Null`
-
-
-------------------------------------------------------------------------
-
-### nseStatus
-
-  Property          Value
-  ----------------- ---------------------------------------------
-  Type              String
-  Description       Current NSE listing status of the security.
-  Source Table      `ace_company_master`
-  Lookup Column     `fincode`
-  Returned Column   `nse_sublisting`
-  Possible Values   `Active`, `Suspended`, `Delisted`, `Null`
-
-
-------------------------------------------------------------------------
 ---
 
-### `EquityData`
+## `bseStatus`
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Description |  Current BSE listing status of the security. |
+| Source Table | `ace_company_master` |
+| Lookup Column | `scripcode` |
+| Returned Column | `bse_sublisting` |
+| Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
+
+---
+
+## `nseStatus`
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Description | Current NSE listing status of the security. |
+| Source Table | `ace_company_master` |
+| Lookup Column | `fincode` |
+| Returned Column | `nse_sublisting` |
+| Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
+---
+
+## `EquityData`
 - **Type:** `object`
-- **Description:** The EquityData object contains the latest available equity market information for the company. The data is retrieved from the ace_equity table using the company's FINCODE.
+- **Description:**
+  - The EquityData object contains the latest available equity market information for the company. The data is retrieved from the ace_equity table using the company's FINCODE.
+  - If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
 
-If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the most recent record.
+
+### Source
+|Source Table	|Lookup Column	|Sort Column	  |           Selected Record|
+|-------------|-------------- |------------    |         -----------------|
+|ace_equity	  |  fincode	    | price_date (Ascending)	| Latest (price_date)|
 
 
-**Source:**
-Source Table	Lookup Column	Sort Column	             Selected Record
---------------- --------------  ------------             -----------------
-ace_equity	    fincode	        price_date (Ascending)	 Latest (price_date)
+### Response Structure
 
-**Fields:**
-`Field`	    Type	Description	Source Column
-`clsPric`	Number / String	Latest closing market price of the equity. Returns "Null" if unavailable.	price
-`stkExchange`	String	Stock exchange on which the latest equity price was recorded (BSE/NSE).	stk_exchange
-`tradeDate`	Date	Trade date corresponding to the latest closing price.	price_date
-`pe`	Number / String	Trailing Twelve Months (TTM) Price-to-Earnings ratio. Returns "Null" if unavailable.	ttmpe
-`faceValue`	Number / String	Face value of the equity share.	fv
-`faceValueDate`	Date	Date corresponding to the face value information.	price_date
+| Field | Type | Description | Source Column |
+|-------|------|-------------|---------------|
+| `clsPric` | Number / String | Latest closing market price of the equity. Returns `"Null"` if unavailable. | `price` |
+| `stkExchange` | String | Stock exchange on which the latest equity price was recorded (BSE/NSE). | `stk_exchange` |
+| `tradeDate` | Date | Trade date corresponding to the latest closing price. | `price_date` |
+| `pe` | Number / String | Trailing Twelve Months (TTM) Price-to-Earnings ratio. Returns `"Null"` if unavailable. | `ttmpe` |
+| `faceValue` | Number / String | Face value of the equity share. | `fv` |
+| `faceValueDate` | Date | Date corresponding to the face value information. | `price_date` |
 
+### Retrieval Logic
+
+The API retrieves the latest available equity information for the company using the company's **FINCODE**.
+
+#### Step 1 - Retrieve Equity Records
+
+```
+Lookup table - ace_equity using:
+
+1. fincode
+```
+
+#### Step 2 - Select Latest Record
+
+```
+If one or more records are found:
+
+1. Sort the records by `price_date` in ascending order.
+2. Select the most recent record (latest `price_date`).
+```
+
+#### Step 3 - Populate EquityData
+
+The following fields are populated from the selected record:
+
+- `clsPric` ← `price`
+- `stkExchange` ← `stk_exchange`
+- `tradeDate` ← `price_date` (returned in `YYYY-MM-DD` format)
+- `pe` ← `ttmpe`
+- `faceValue` ← `fv`
+- `faceValueDate` ← `price_date` (returned in `YYYY-MM-DD` format)
+
+#### Step 4 - Update Listing Exchange
+
+Based on the retrieved stock exchange:
+
+- If `stkExchange` is `BSE`, `listedWith` is updated to `BSE`.
+- If `stkExchange` is `NSE`, `listedWith` is updated to `NSE`.
+
+
+### Null Handling
+
+If no matching equity record is found or an exception occurs:
+
+- `clsPric` = `"Null"`
+- `stkExchange` = `"Null"`
+- `tradeDate` = `"Null"`
+- `pe` = `"Null"`
+- `faceValue` = `"Null"`
+- `faceValueDate` = `"Null"`
+
+If the latest record exists but the `ttmpe` value is `NULL` in the database:
+
+- `pe` is returned as `"Null"`.
+
+
+### Notes
+
+- Equity data is retrieved from the `ace_equity` table using the company's **FINCODE**.
+- If multiple equity records exist, the API sorts them by `price_date` in ascending order and returns the latest available record.
+- `tradeDate` and `faceValueDate` are derived from `price_date` and returned in **YYYY-MM-DD** format.
+- The `listedWith` field is updated based on the value of `stkExchange`.
+- Database `NULL` values are returned as the string `"Null"`.
+- Any unexpected exception during retrieval results in `"Null"` values for the corresponding fields.
+  
 ---
-# 52WeekHL
+
+## 52WeekHL
 
 **Description:**
-The `52WeekHL` object contains the company's **52-week High and Low prices** for both the **Bombay Stock Exchange (BSE)** and the **National Stock Exchange (NSE)**.
+- The `52WeekHL` object contains the company's **52-week High and Low prices** for both the **Bombay Stock Exchange (BSE)** and the **National Stock Exchange (NSE)**.
+- The data is retrieved from the `ace_52whl` table.
 
-The data is retrieved from the `ace_52whl` table.
-
----
-
-## Source
+### Source
 
 | Source Table | Primary Lookup | Fallback Lookup |
 |--------------|----------------|-----------------|
@@ -99,9 +154,8 @@ If the `scripCode` is not available, the API retrieves the data using:
 |--------------|----------------|-----------------|
 | `ace_52whl` | `fincode` | `symbol` |
 
----
 
-## Response Structure
+### Response Structure
 
 | Field | Type | Description | Source Column |
 |------|------|-------------|---------------|
@@ -114,27 +168,25 @@ If the `scripCode` is not available, the API retrieves the data using:
 | `nseLow` | Number / String | Lowest price traded on NSE during the last 52 weeks. | `nse_low` |
 | `nseLowDate` | Date | Date on which the 52-week low was recorded on NSE. | `nse_lowdate` |
 
----
 
-# Retrieval Logic
+### Retrieval Logic
 
 The API follows the lookup sequence below.
 
-### Case 1 - Scrip Code Available
+#### Case 1 - Scrip Code Available
 
 ```
-Lookup ace_52whl using:
+Lookup table - ace_52whl using:
 
 1. scripcode
 2. If no record is found, lookup using symbol
 ```
 
----
 
-### Case 2 - Scrip Code Not Available
+#### Case 2 - Scrip Code Not Available
 
 ```
-Lookup ace_52whl using:
+Lookup table - ace_52whl using:
 
 1. fincode
 2. If no record is found, lookup using symbol
@@ -146,15 +198,12 @@ If a record is found:
 - `symbol` is updated from `ace_52whl.symbol`.
 - `bseStatus` is refreshed using the retrieved `scripCode`.
 
----
+### Null Handling
 
-# Null Handling
+If no matching record is found or an exception occurs, the API returns Null for all fields:
 
-If no matching record is found or an exception occurs, the API returns Null:
 
----
-
-## Notes
+### Notes
 
 - All dates are returned in **YYYY-MM-DD** format.
 - Database `NULL` values are returned as the string `"Null"`.
@@ -163,23 +212,22 @@ If no matching record is found or an exception occurs, the API returns Null:
 
 ---
 
-# MarketCapitalData
+## MarketCapitalData
 
-The `MarketCapitalData` object provides the company's latest **Market Capitalization** details based on the most recent equity record available in the `ace_equity` table.
+**Description:**
+- The `MarketCapitalData` object provides the company's latest **Market Capitalization** details based on the most recent equity record available in the `ace_equity` table.
 
-The data is retrieved using the company's **FINCODE**.
+- The data is retrieved using the company's **FINCODE**.
 
----
 
-## Source
+### Source
 
 | Source Table | Lookup Column |
 |--------------|---------------|
 | `ace_equity` | `fincode` |
 
----
 
-## Response Structure
+### Response Structure
 
 | Field | Type | Description | Source Column |
 |------|------|-------------|---------------|
@@ -187,9 +235,8 @@ The data is retrieved using the company's **FINCODE**.
 | `stkExchange` | String | Stock exchange associated with the market capitalization record. | `stk_exchange` |
 | `tradeDate` | Date | Date on which the market capitalization value was recorded. | `price_date` |
 
----
 
-# Retrieval Logic
+### Retrieval Logic
 
 1. Retrieve the equity records from `ace_equity` using the company's **FINCODE**.
 2. Use the same equity record selected for the `EquityData` section.
@@ -205,9 +252,7 @@ Market Capitalization (Crores) = mcap / 10,000,000
 
 5. Round the calculated value to **2 decimal places** before returning it in the response.
 
----
-
-# Exchange Logic
+### Exchange Logic
 
 The `MarketCapitalData` object is populated only when the stock exchange obtained from `EquityData.stkExchange` is either:
 
@@ -216,18 +261,18 @@ The `MarketCapitalData` object is populated only when the stock exchange obtaine
 
 If the exchange is unavailable or contains any other value, the API returns `"Null"` for all fields.
 
----
 
-# Null Handling
+### Null Handling
 
-If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null:
+If the market capitalization data is unavailable or an exception occurs while retrieving the data, the API returns Null for all fields:
 
----
 
-## Notes
+### Notes
 
 - Market capitalization is retrieved from the `ace_equity.mcap` column.
 - The value is converted from its stored unit into **Crores** by dividing it by **10,000,000**.
 - The result is rounded to **2 decimal places**.
 - The `tradeDate` is derived from `price_date` and returned in **YYYY-MM-DD** format.
 - Database `NULL` values are returned as the string `"Null"`.
+
+---
