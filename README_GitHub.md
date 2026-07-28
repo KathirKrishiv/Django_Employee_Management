@@ -318,34 +318,36 @@ The financial data is retrieved from multiple source tables using the following 
 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
+
+
 ## Fields
 
-| Field | Type | Description |
+| Field | Type | Description | Transformation |
 |-------|------|-------------|
-| `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. |
-| `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. |
-| `financialYear` | String | Financial year period derived using the available year-end information. |
-| `netSalesQuarterlyActualsCurrentQt` | Number / String | Quarterly Net Sales. |
-| `netSalesYtdActualsCurrentQt` | Number / String | Year-to-date Net Sales. |
-| `otherIncomeQuarterlyActualsCurrentQt` | Number / String | Quarterly Other Income. |
-| `otherIncomeYtdActualsCurrentQt` | Number / String | Year-to-date Other Income. |
-| `epsQuarterlyActualsCurrentQt` | Number / String | Quarterly Earnings Per Share (EPS). |
-| `epsYtdActualsCurrentQt` | Number / String | Year-to-date Earnings Per Share (EPS). |
-| `patQuarterlyActualsCurrentQt` | Number / String | Quarterly Profit After Tax (PAT). |
-| `patYtdActualsCurrentQt` | Number / String | Year-to-date Profit After Tax (PAT). |
-| `taxQuarterlyActualsCurrentQt` | Number / String | Quarterly Tax Expense. |
-| `taxYtdActualsCurrentQt` | Number / String | Year-to-date Tax Expense. |
-| `interestQuarterlyActualsCurrentQt` | Number / String | Quarterly Interest Expense. |
-| `interestYtdActualsCurrentQt` | Number / String | Year-to-date Interest Expense. |
-| `depreciationAmortisationQuarterlyActualsCurrentQt` | Number / String | Quarterly Depreciation & Amortisation Expense. |
-| `depreciationAmortisationYtdActualsCurrentQt` | Number / String | Year-to-date Depreciation & Amortisation Expense. |
-| `netCashFromOperationsHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from operating activities. |
-| `netCashFromInvestingHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from investing activities. |
-| `netCashFromFinanceHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from financing activities. |
-| `totalCashFlowBeforeEffectOfExchangeRateChanges` | Number / String | Total cash flow before the effect of exchange rate changes. |
-| `effectOfExchangeRateChanges` | Number / String | Effect of exchange rate changes on cash and cash equivalents. |
-| `totalCashFlowAfterEffectOfExchangeRateChanges` | Number / String | Total cash flow after the effect of exchange rate changes. |
-| **Remaining Balance Sheet Fields** | Number / String | Includes balance sheet values such as Share Capital, Reserves, Borrowings, Assets, Liabilities, Investments, Cash & Cash Equivalents, Inventory, Trade Receivables, Trade Payables, and other balance sheet items. Returns `"Null"` when the corresponding value is unavailable. |
+| `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. | Derived |
+| `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. | Non-Derived |
+| `financialYear` | String | Financial year period derived using the available year-end information. | Derived |
+| `netSalesQuarterlyActualsCurrentQt` | Number / String | Quarterly Net Sales. | Non-Derived |
+| `netSalesYtdActualsCurrentQt` | Number / String | Year-to-date Net Sales. | Non-Derived |
+| `otherIncomeQuarterlyActualsCurrentQt` | Number / String | Quarterly Other Income. | Non-Derived |
+| `otherIncomeYtdActualsCurrentQt` | Number / String | Year-to-date Other Income. | Non-Derived |
+| `epsQuarterlyActualsCurrentQt` | Number / String | Quarterly Earnings Per Share (EPS). | Non-Derived |
+| `epsYtdActualsCurrentQt` | Number / String | Year-to-date Earnings Per Share (EPS). | Non-Derived |
+| `patQuarterlyActualsCurrentQt` | Number / String | Quarterly Profit After Tax (PAT). | Non-Derived |
+| `patYtdActualsCurrentQt` | Number / String | Year-to-date Profit After Tax (PAT). | Non-Derived |
+| `taxQuarterlyActualsCurrentQt` | Number / String | Quarterly Tax Expense. | Non-Derived |
+| `taxYtdActualsCurrentQt` | Number / String | Year-to-date Tax Expense. | Non-Derived |
+| `interestQuarterlyActualsCurrentQt` | Number / String | Quarterly Interest Expense. | Non-Derived |
+| `interestYtdActualsCurrentQt` | Number / String | Year-to-date Interest Expense. | Non-Derived |
+| `depreciationAmortisationQuarterlyActualsCurrentQt` | Number / String | Quarterly Depreciation & Amortisation Expense. | Non-Derived |
+| `depreciationAmortisationYtdActualsCurrentQt` | Number / String | Year-to-date Depreciation & Amortisation Expense. | Non-Derived |
+| `netCashFromOperationsHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from operating activities. | Non-Derived |
+| `netCashFromInvestingHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from investing activities. | Non-Derived |
+| `netCashFromFinanceHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from financing activities. | Non-Derived |
+| `totalCashFlowBeforeEffectOfExchangeRateChanges` | Number / String | Total cash flow before the effect of exchange rate changes. | Non-Derived |
+| `effectOfExchangeRateChanges` | Number / String | Effect of exchange rate changes on cash and cash equivalents. | Non-Derived |
+| `totalCashFlowAfterEffectOfExchangeRateChanges` | Number / String | Total cash flow after the effect of exchange rate changes. | Non-Derived |
+| **Remaining Balance Sheet Fields** | Number / String | Includes balance sheet values such as Share Capital, Reserves, Borrowings, Assets, Liabilities, Investments, Cash & Cash Equivalents, Inventory, Trade Receivables, Trade Payables, and other balance sheet items. Returns `"Null"` when the corresponding value is unavailable. | Non-Derived |
 
 
 ### Retrieval Logic
