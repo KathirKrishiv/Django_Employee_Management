@@ -319,7 +319,7 @@ The financial data is retrieved from multiple source tables using the following 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
 
-### Fields
+#### Fields
 
 | Field | Type | Description | Transformation | Result Category |
 |------|------|-------------|----------------|-----------------|
