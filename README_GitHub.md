@@ -319,8 +319,6 @@ The financial data is retrieved from multiple source tables using the following 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
 
-#### Fields
-
 | Field | Type | Description | Transformation | Result Category |
 |------|------|-------------|----------------|-----------------|
 | `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. | Derived | General |
