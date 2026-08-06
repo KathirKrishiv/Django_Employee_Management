@@ -319,38 +319,7 @@ The financial data is retrieved from multiple source tables using the following 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
 
-
-## Fields
-
-| Field | Type | Description | Transformation | Result Category |
-|-------|------|-------------|----------------|-----------------|
-| `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. | Derived | |
-| `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. | Non-Derived | |
-| `financialYear` | String | Financial year period derived using the available year-end information. | Derived | |
-| `netSalesQuarterlyActualsCurrentQt` | Number / String | Quarterly Net Sales. | Non-Derived | Profit & Loss Field |
-| `netSalesYtdActualsCurrentQt` | Number / String | Year-to-date Net Sales. | Non-Derived | Profit & Loss Field |
-| `otherIncomeQuarterlyActualsCurrentQt` | Number / String | Quarterly Other Income. | Non-Derived | Profit & Loss Field |
-| `otherIncomeYtdActualsCurrentQt` | Number / String | Year-to-date Other Income. | Non-Derived | Profit & Loss Field |
-| `epsQuarterlyActualsCurrentQt` | Number / String | Quarterly Earnings Per Share (EPS). | Non-Derived | Profit & Loss Field |
-| `epsYtdActualsCurrentQt` | Number / String | Year-to-date Earnings Per Share (EPS). | Non-Derived | Profit & Loss Field |
-| `patQuarterlyActualsCurrentQt` | Number / String | Quarterly Profit After Tax (PAT). | Non-Derived | Profit & Loss Field |
-| `patYtdActualsCurrentQt` | Number / String | Year-to-date Profit After Tax (PAT). | Non-Derived | Profit & Loss Field |
-| `taxQuarterlyActualsCurrentQt` | Number / String | Quarterly Tax Expense. | Non-Derived | Profit & Loss Field |
-| `taxYtdActualsCurrentQt` | Number / String | Year-to-date Tax Expense. | Non-Derived | Profit & Loss Field |
-| `interestQuarterlyActualsCurrentQt` | Number / String | Quarterly Interest Expense. | Non-Derived | Profit & Loss Field |
-| `interestYtdActualsCurrentQt` | Number / String | Year-to-date Interest Expense. | Non-Derived | Profit & Loss Field |
-| `depreciationAmortisationQuarterlyActualsCurrentQt` | Number / String | Quarterly Depreciation & Amortisation Expense. | Non-Derived | Profit & Loss Field |
-| `depreciationAmortisationYtdActualsCurrentQt` | Number / String | Year-to-date Depreciation & Amortisation Expense. | Non-Derived | Profit & Loss Field |
-| `netCashFromOperationsHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from operating activities. | Non-Derived | Cashflow Line Field |
-| `netCashFromInvestingHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from investing activities. | Non-Derived | Cashflow Line Field |
-| `netCashFromFinanceHalfYearlyActualsCurrentHy` | Number / String | Net cash generated from financing activities. | Non-Derived | Cashflow Line Field |
-| `totalCashFlowBeforeEffectOfExchangeRateChanges` | Number / String | Total cash flow before the effect of exchange rate changes. | Cashflow Line Field |
-| `effectOfExchangeRateChanges` | Number / String | Effect of exchange rate changes on cash and cash equivalents. | Non-Derived | Cashflow Line Field |
-| `totalCashFlowAfterEffectOfExchangeRateChanges` | Number / String | Total cash flow after the effect of exchange rate changes. | Non-Derived | Cashflow Line Field |
-| **Remaining Balance Sheet Fields** | Number / String | Includes balance sheet values such as Share Capital, Reserves, Borrowings, Assets, Liabilities, Investments, Cash & Cash Equivalents, Inventory, Trade Receivables, Trade Payables, and other balance sheet items. Returns `"Null"` when the corresponding value is unavailable. | Non-Derived | Balance Sheet Field |
-
-
-## Fields1
+#### Fields
 
 | Field | Type | Description | Transformation | Result Category |
 |------|------|-------------|----------------|-----------------|
@@ -434,6 +403,26 @@ ace_balancesheet_result_balancesheet
 
 Sort by Date_End (Descending) and select latest record.
 
+##### Balance Sheet Fields
+
+| Liabilities | Assets |
+|-------------|--------|
+| `shareCapitalHalfYearEndingActualsCurrentHy` | `fixedAssetsHalfYearEndingActualsCurrentHy` |
+| `reservesAndSurplusHalfYearEndingActualsCurrentHy` | `noncurrentInvestmentsHalfYearEndingActualsCurrentHy` |
+| `pendingAllotmentHalfYearEndingActualsCurrentHy` | `longtermadvancesHalfYearEndingActualsCurrentHy` |
+| `longTermBorrowingsHalfYearEndingActualsCurrentHy` | `tradeReceivablesMoreThan6MonthsHalfYearEndingActualsCurrentHy` |
+| `deferredTaxLiabilitiesHalfYearEndingActualsCurrentHy` | `subtotalNonCurrentAssetsHalfYearEndingActualsCurrentHy` |
+| `longTermProvisionHalfYearEndingActualsCurrentHy` | `currentInvestmentsHalfYearEndingActualsCurrentHy` |
+| `totalNonCurrentLiabilitiesHalfYearEndingActualsCurrentHy` | `inventoriesHalfYearEndingActualsCurrentHy` |
+| `shortTermBorrowingsHalfYearEndingActualsCurrentHy` | `tradeReceivablesHalfYearEndingActualsCurrentHy` |
+| `tradePayablesHalfYearEndingActualsCurrentHy` | `cashHalfYearEndingActualsCurrentHy` |
+| `shortTermProvisionHalfYearEndingActualsCurrentHy` | `shortTermAdvancesHalfYearEndingActualsCurrentHy` |
+| `subtotalCurrentLiabilitiesHalfYearEndingActualsCurrentHy` | `subtotalCurrentAssetsHalfYearEndingActualsCurrentHy` |
+| `tclHalfYearEndingActualsCurrentHy` | `intangibleAssetsHalfYearEndingActualsCurrentHy` |
+|  | `deferredTaxAssetsHalfYearEndingActualsCurrentHy` |
+|  | `inventoryHalfYearEndingActualsCurrentHy` |
+|  | `tcaHalfYearEndingActualsCurrentHy` |
+
 #### Step 3 - Capitaline Fallback
 
 If NSE financial data is unavailable (`nse_flag = "False"`):
@@ -485,6 +474,15 @@ Cash flow values populate:
  - Financing Cash Flow
  - Total Cash Flow
  - Exchange Rate Adjustment
+
+##### Cash Flow Fields
+
+| Operating / Investing / Financing | Other Cash Flow Fields |
+|-----------------------------------|------------------------|
+| `netCashFromOperationsHalfYearlyActualsCurrentHy` | `totalCashFlowBeforeEffectOfExchangeRateChanges` |
+| `netCashFromInvestingHalfYearlyActualsCurrentHy` | `effectOfExchangeRateChanges` |
+| `netCashFromFinanceHalfYearlyActualsCurrentHy` | `totalCashFlowAfterEffectOfExchangeRateChanges` |
+
 
 #### Step 5 - Financial Year
 
