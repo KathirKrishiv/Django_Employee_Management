@@ -508,18 +508,6 @@ The function:
 - Calculates both **Quarterly** and **YTD** values based on the available financial result type (Quarterly, Half-Yearly, or Annual).
 - Updates the response with the calculated values.
 
-##### Profit & Loss Fields
-
-| Quarterly Field | YTD Field |
-|-----------------|-----------|
-| `netSalesQuarterlyActualsCurrentQt` | `netSalesYtdActualsCurrentQt` |
-| `otherIncomeQuarterlyActualsCurrentQt` | `otherIncomeYtdActualsCurrentQt` |
-| `epsQuarterlyActualsCurrentQt` | `epsYtdActualsCurrentQt` |
-| `patQuarterlyActualsCurrentQt` | `patYtdActualsCurrentQt` |
-| `taxQuarterlyActualsCurrentQt` | `taxYtdActualsCurrentQt` |
-| `interestQuarterlyActualsCurrentQt` | `interestYtdActualsCurrentQt` |
-| `depreciationAmortisationQuarterlyActualsCurrentQt` | `depreciationAmortisationYtdActualsCurrentQt` |
-
 ##### Notes
 
 - YTD values are calculated using the latest available financial records.
