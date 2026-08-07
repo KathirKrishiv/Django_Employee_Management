@@ -319,7 +319,7 @@ The financial data is retrieved from multiple source tables using the following 
 The API returns an array of objects. Each object contains the latest available financial information for a reporting period.
 
 
-| Field | Type | Description | Transformation | Result Category |
+| Field | Type | Description | Transformation | Field Category |
 |------|------|-------------|----------------|-----------------|
 | `reportingQuarter` | String | Reporting quarter. Returns `"Null"` if unavailable. | Derived | General |
 | `natureOfReport` | String | Indicates whether the financial results are **Standalone** or **Consolidated**. | Non-Derived | General |
