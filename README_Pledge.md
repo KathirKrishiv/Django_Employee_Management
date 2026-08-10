@@ -1,10 +1,10 @@
-# Pledge Invocation
+## Pledge Invocation
 
 The `pledgeInvocation` object provides promoter share encumbrance details from both **BSE** and **NSE** sources.
 
 The API attempts to retrieve BSE and NSE pledge data independently. If data is unavailable or an exception occurs, the respective exchange object returns `"Null"` for all fields.
 
-## Response Structure
+### Response Structure
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -12,7 +12,7 @@ The API attempts to retrieve BSE and NSE pledge data independently. If data is u
 | `pledgeInvocation.bse` | Object | Pledge data retrieved from BSE. |
 | `pledgeInvocation.nse` | Object | Pledge data retrieved from NSE. |
 
-### Pledge Fields
+#### Pledge Fields for BSE & NSE
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -27,9 +27,9 @@ The API attempts to retrieve BSE and NSE pledge data independently. If data is u
 | `dateOfEventCreationReleaseInvocationOnEncumbrance` | String | Date of the encumbrance event. BSE date is formatted as `YYYY-MM-DD`. |
 | `nameOfEntityInWhoseFavourSharesEncumbered` | String | Name of the entity in whose favour the shares are encumbered. Returns `"Null"` if unavailable. |
 
-## Retrieval Logic
+### Retrieval Logic
 
-### BSE Pledge Data
+#### BSE Pledge Data
 
 BSE pledge data is retrieved using the **ISIN**.
 
@@ -44,7 +44,7 @@ The ISIN is identified using the following lookup sequence:
 5. The retrieved ISIN is passed to `pledgeDatas()`.
 
 
-### `pledgeDatas()` Function
+#### `pledgeDatas()` Function
 
 Retrieves and prepares BSE pledge data.
 
@@ -60,7 +60,7 @@ Retrieves and prepares BSE pledge data.
 10. Converts the BSE event date to `YYYY-MM-DD` format.
 
 
-### BSE Source
+#### BSE Source
 
 | Source Table | Lookup Column | Selected Data |
 |--------------|---------------|---------------|
@@ -84,7 +84,7 @@ The `bse_pledge` table provides the following source fields:
 
 The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD`.
 
-### NSE Pledge Data
+#### NSE Pledge Data
 
 NSE pledge data is retrieved using the `security_id`.
 
@@ -92,7 +92,7 @@ The `security_id` is obtained from `bse_new_security_list` using the provided PA
 
 The retrieved security ID is passed to `nse_pledge_data()`.
 
-### `nse_pledge_data()` Function
+#### `nse_pledge_data()` Function
 
 The `nse_pledge_data()` function retrieves and prepares the latest NSE pledge data.
 
@@ -107,7 +107,7 @@ The function performs the following operations:
 7. Returns `"Null"` values when no data is available or an exception occurs.
 8. The NSE event date is returned using the available source date value.
 
-### NSE Source
+#### NSE Source
 
 | Source Table | Lookup Column | Selected Record |
 |--------------|---------------|-----------------|
@@ -130,7 +130,7 @@ The following NSE source fields are mapped to the API response:
 | `dt_events_pertaining_to_encumbrance_date_of_even` | `dateOfEventCreationReleaseInvocationOnEncumbrance` |
 | `dt_events_pertaining_encumbrance_name_entity_shares_encumbere` | `nameOfEntityInWhoseFavourSharesEncumbered` |
 
-## Null Handling
+### Null Handling
 
 - The `pledgeInvocation` object is initialized with separate `bse` and `nse` objects.
 - If BSE pledge data is unavailable, all BSE pledge fields are returned as `"Null"`.
@@ -140,10 +140,94 @@ The following NSE source fields are mapped to the API response:
 - BSE event dates are returned in `YYYY-MM-DD` format when valid.
 - NSE date values are returned based on the available source value.
 
-## Notes
+### Notes
 
 - BSE and NSE pledge data are retrieved independently.
 - BSE primarily uses **ISIN** for pledge data retrieval.
 - NSE uses the **security ID** associated with the PAN.
 - For NSE, the most recent record is selected based on `broadcast_date_time`.
 - The API does not fail the complete response when pledge data for one exchange is unavailable; instead, the unavailable exchange returns `"Null"` values.
+
+## ShareHoldingPattern
+
+The `shareHoldingPattern` object provides the latest shareholding details for the company. The API returns the **latest two quarters** based on the available `date_end` values from the `ace_shp` table.
+
+### Retrieval Logic
+
+1. Retrieve shareholding records from `ace_shp` using `FINCODE`.
+2. Sort the records by `date_end` in descending order.
+3. Select the latest **two quarters**.
+4. Convert `date_end` into `Mon YYYY` format for the `quarter` field.
+5. Map the database values to the API response structure.
+6. Convert unavailable or `NULL` values to `"Null"`.
+7. Return the two latest quarterly records as a list.
+8. If no records are available or an exception occurs, the corresponding fields are returned as `"Null"`.
+
+### Source
+
+| Source Table | Lookup Column | Sort Column | Selected Records |
+|--------------|---------------|-------------|------------------|
+| `ace_shp` | `FINCODE` | `date_end` (Descending) | Latest 2 quarters |
+
+### Response Structure
+
+| Field | Description |
+|-------|-------------|
+| `quarter` | Reporting quarter in `Mon YYYY` format. |
+| `totalPromoterGroup` | Promoter group shareholding details. |
+| `totalPromoterGroup.tpgTotals` | Total promoter group shareholding and encumbrance percentage. |
+| `totalPromoterGroup.tpgIndian` | Indian promoter shareholding details. |
+| `totalPromoterGroup.tpgForeign` | Foreign promoter shareholding details. |
+| `public` | Public shareholding details. |
+| `public.publicTotal` | Total public shareholding. |
+| `public.totalInstitution` | Institutional public shareholding. |
+| `public.totalNonInstitution` | Non-institutional public shareholding. |
+| `public.governmentTotal` | Government shareholding. |
+| `nonPromoterNonPublic` | Non-promoter and non-public shareholding details. |
+| `nonPromoterNonPublic.totalCustodians` | Custodian/DR shareholding details. |
+| `nonPromoterNonPublic.nonpromoternonpublic` | Non-promoter, non-public shareholding details. |
+| `grandTotal` | Total number of shares and percentage of total share capital. |
+
+### Shareholding Fields
+
+| Field | Description |
+|-------|-------------|
+| `totalNoSharesHeld` | Total number of shares held. |
+| `shareholdingAsAPerOfTotalNoOfShares` | Shareholding percentage of total shares. |
+| `totalPercentEncumbered` | Percentage of promoter holding that is encumbered. |
+
+### Data Mapping
+
+The following source fields from `ace_shp` are mapped to the API response:
+
+| Source Field | Response Field |
+|--------------|----------------|
+| `nsFtotalpromoter` | `totalPromoterGroup.tpgTotals.totalNoSharesHeld` |
+| `tpFtotalpromoter` | `totalPromoterGroup.tpgTotals.shareholdingAsAPerOfTotalNoOfShares` |
+| `pshGrandTotal` | `totalPromoterGroup.tpgTotals.totalPercentEncumbered` |
+| `nsINDSubtotal` | `totalPromoterGroup.tpgIndian.totalNoSharesHeld` |
+| `tpINDSubtotal` | `totalPromoterGroup.tpgIndian.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsFSubtotal` | `totalPromoterGroup.tpgForeign.totalNoSharesHeld` |
+| `tpFSubtotal` | `totalPromoterGroup.tpgForeign.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsTotalpublic` | `public.publicTotal.totalNoSharesHeld` |
+| `tpTotalpublic` | `public.publicTotal.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsINSubtotal` | `public.totalInstitution.totalNoSharesHeld` |
+| `tpINSubtotal` | `public.totalInstitution.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsNINSubtotal` | `public.totalNonInstitution.totalNoSharesHeld` |
+| `tpNINSubtotal` | `public.totalNonInstitution.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsINcgovt` | `public.governmentTotal.totalNoSharesHeld` |
+| `tpINcgovt` | `public.governmentTotal.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsCustodianDRs` | `nonPromoterNonPublic.totalCustodians.totalNoSharesHeld` |
+| `tpCustodianDRs` | `nonPromoterNonPublic.totalCustodians.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsCustodianDRs` | `nonPromoterNonPublic.nonpromoternonpublic.totalNoSharesHeld` |
+| `tpCustodianDRs` | `nonPromoterNonPublic.nonpromoternonpublic.shareholdingAsAPerOfTotalNoOfShares` |
+| `nsGrandTotal` | `grandTotal.totalNoSharesHeld` |
+| `tpGrandTotal` | `grandTotal.shareholdingAsAPerOfTotalNoOfShares` |
+
+### Null and Error Handling
+
+- If a source value is `NULL`, the API returns `"Null"`.
+- If no `ace_shp` records are found, the function returns a default response with `"Null"` values.
+- If an exception occurs, the API returns the default shareholding structure.
+- `shareHoldingPattern` is always returned as a **list** in the final API response.
+- When data is available, the list contains the **latest two quarters**.
