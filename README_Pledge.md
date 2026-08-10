@@ -63,6 +63,21 @@ The function performs the following operations:
 10. If an exception occurs, the function returns the exception with status `500`.
 11. The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD` before being added to the API response.
 
+### `pledgeDatas()` Function
+
+Retrieves and prepares BSE pledge data.
+
+1. Accepts **ISIN** and **Target Company Name**.
+2. Filters `bse_pledge` using the available input.
+3. Retrieves pledge, promoter holding, encumbrance, and event details.
+4. Maps database fields to API response fields.
+5. Converts empty values to `"Null"`.
+6. Validates the ISIN against `bse_new_security_list`.
+7. Returns the mapped data if a record is found.
+8. Returns `"No Record Found"` if no data is available.
+9. Returns `"Null"` values when an exception occurs.
+10. Converts the BSE event date to `YYYY-MM-DD` format.
+
 
 ### BSE Source
 
