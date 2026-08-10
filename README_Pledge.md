@@ -12,7 +12,7 @@ The API attempts to retrieve BSE and NSE pledge data independently. If data is u
 | `pledgeInvocation.bse` | Object | Pledge data retrieved from BSE. |
 | `pledgeInvocation.nse` | Object | Pledge data retrieved from NSE. |
 
-#### Pledge Fields for BSE & NSE
+### Pledge Fields for BSE & NSE
 
 | Field | Type | Description |
 |-------|------|-------------|
@@ -29,7 +29,7 @@ The API attempts to retrieve BSE and NSE pledge data independently. If data is u
 
 ### Retrieval Logic
 
-#### BSE Pledge Data
+### BSE Pledge Data
 
 BSE pledge data is retrieved using the **ISIN**.
 
@@ -84,7 +84,7 @@ The `bse_pledge` table provides the following source fields:
 
 The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD`.
 
-#### NSE Pledge Data
+### NSE Pledge Data
 
 NSE pledge data is retrieved using the `security_id`.
 
