@@ -43,25 +43,6 @@ The ISIN is identified using the following lookup sequence:
 4. If no ISIN is available, `"Null"` is used.
 5. The retrieved ISIN is passed to `pledgeDatas()`.
 
-### `pledgeDatas()` Function
-
-The `pledgeDatas()` function retrieves and prepares BSE pledge data.
-
-The function performs the following operations:
-
-1. Accepts **ISIN** and **Target Company Name** as input parameters.
-2. Builds the filter dynamically based on the available input values.
-3. Queries the `bse_pledge` table using:
-   - `isin_number` when ISIN is provided.
-   - `name_of_the_target_company` when the target company name is provided.
-4. Retrieves the promoter holding, encumbered shares, event details, event date, and entity information.
-5. Maps the database fields to the API response field names.
-6. Converts empty source values to `"Null"`.
-7. Verifies the availability of the corresponding security code from `bse_new_security_list` using the retrieved ISIN.
-8. If matching pledge data is available, returns the mapped pledge information with HTTP status `200`.
-9. If no matching record is found, returns `"No Record Found"` with status `500`.
-10. If an exception occurs, the function returns the exception with status `500`.
-11. The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD` before being added to the API response.
 
 ### `pledgeDatas()` Function
 
