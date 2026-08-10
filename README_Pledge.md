@@ -109,39 +109,6 @@ The following NSE source fields are mapped to the API response:
 - BSE event dates are returned in `YYYY-MM-DD` format when valid.
 - NSE date values are returned based on the available source value.
 
-## Sample Response
-
-```json
-{
-  "pledgeInvocation": {
-    "bse": {
-      "nameOfPromoterOrPAC": "JAYADEV GALLA",
-      "promoterHoldingNoOfShares": "12821984.00",
-      "promoterHoldingPerOfTotalCapital": "7.51",
-      "promoterHoldingSharesAlreadyEncumberedNoOfShares": "1175000.00",
-      "promoterHoldingSharesAlreadyEncumberedPerOfTotalCapital": "9.16",
-      "typeOfEventCreationReleaseInvocationOnEncumbrance": "Release",
-      "creationReleaseInvocationOnEncumbranceNoOfShares": "500000",
-      "creationReleaseInvocationOnEncumbrancePerOfTotalCapital": "3.90",
-      "dateOfEventCreationReleaseInvocationOnEncumbrance": "2017-03-27",
-      "nameOfEntityInWhoseFavourSharesEncumbered": "Null"
-    },
-    "nse": {
-      "nameOfPromoterOrPAC": "RNGalla Family Private Ltd",
-      "promoterHoldingNoOfShares": "4,79,32,452",
-      "promoterHoldingPerOfTotalCapital": "28.06",
-      "promoterHoldingSharesAlreadyEncumberedNoOfShares": "-",
-      "promoterHoldingSharesAlreadyEncumberedPerOfTotalCapital": "-",
-      "typeOfEventCreationReleaseInvocationOnEncumbrance": "Release",
-      "creationReleaseInvocationOnEncumbranceNoOfShares": "4,79,32,452",
-      "creationReleaseInvocationOnEncumbrancePerOfTotalCapital": "28.06",
-      "dateOfEventCreationReleaseInvocationOnEncumbrance": "09-Jun-2021",
-      "nameOfEntityInWhoseFavourSharesEncumbered": "ICICI Bank Ltd"
-    }
-  }
-}
-```
-
 ## Notes
 
 - BSE and NSE pledge data are retrieved independently.
