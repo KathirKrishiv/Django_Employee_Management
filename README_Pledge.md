@@ -44,7 +44,7 @@ The ISIN is identified using the following lookup sequence:
 5. The retrieved ISIN is passed to `pledgeDatas()`.
 
 
-#### `pledgeDatas()` Function
+#### `pledgeDatas()` Function:
 
 Retrieves and prepares BSE pledge data.
 
@@ -92,7 +92,7 @@ The `security_id` is obtained from `bse_new_security_list` using the provided PA
 
 The retrieved security ID is passed to `nse_pledge_data()`.
 
-#### `nse_pledge_data()` Function
+#### `nse_pledge_data()` Function:
 
 The `nse_pledge_data()` function retrieves and prepares the latest NSE pledge data.
 
