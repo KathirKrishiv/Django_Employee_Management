@@ -41,8 +41,28 @@ The ISIN is identified using the following lookup sequence:
    - Search `bse_new_security_list` using `PAN`.
    - If not found, the code attempts the `new_mapping` lookup.
 4. If no ISIN is available, `"Null"` is used.
+5. The retrieved ISIN is passed to `pledgeDatas()`.
 
-The retrieved ISIN is passed to `pledgeDatas()`.
+### `pledgeDatas()` Function
+
+The `pledgeDatas()` function retrieves and prepares BSE pledge data.
+
+The function performs the following operations:
+
+1. Accepts **ISIN** and **Target Company Name** as input parameters.
+2. Builds the filter dynamically based on the available input values.
+3. Queries the `bse_pledge` table using:
+   - `isin_number` when ISIN is provided.
+   - `name_of_the_target_company` when the target company name is provided.
+4. Retrieves the promoter holding, encumbered shares, event details, event date, and entity information.
+5. Maps the database fields to the API response field names.
+6. Converts empty source values to `"Null"`.
+7. Verifies the availability of the corresponding security code from `bse_new_security_list` using the retrieved ISIN.
+8. If matching pledge data is available, returns the mapped pledge information with HTTP status `200`.
+9. If no matching record is found, returns `"No Record Found"` with status `500`.
+10. If an exception occurs, the function returns the exception with status `500`.
+11. The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD` before being added to the API response.
+
 
 ### BSE Source
 
@@ -75,6 +95,21 @@ NSE pledge data is retrieved using the `security_id`.
 The `security_id` is obtained from `bse_new_security_list` using the provided PAN.
 
 The retrieved security ID is passed to `nse_pledge_data()`.
+
+### `nse_pledge_data()` Function
+
+The `nse_pledge_data()` function retrieves and prepares the latest NSE pledge data.
+
+The function performs the following operations:
+
+1. Accepts the **security ID** as the input parameter.
+2. Queries the `nse_pledge_new` table using the security ID.
+3. Retrieves promoter holding, encumbered shares, event details, event date, entity information, and `broadcast_date_time`.
+4. Sorts the retrieved records by `broadcast_date_time` in ascending order.
+5. Selects the **latest available record** from the sorted records.
+6. Maps the selected database record to the API response field names.
+7. Returns `"Null"` values when no data is available or an exception occurs.
+8. The NSE event date is returned using the available source date value.
 
 ### NSE Source
 
