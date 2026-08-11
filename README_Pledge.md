@@ -12,7 +12,7 @@ The API attempts to retrieve BSE and NSE pledge data independently. If data is u
 | `pledgeInvocation.bse` | Object | Pledge data retrieved from BSE. |
 | `pledgeInvocation.nse` | Object | Pledge data retrieved from NSE. |
 
-### Pledge Fields for BSE & NSE
+### Pledge Result Fields for BSE & NSE
 
 | Field | Type | Description |
 |-------|------|-------------|
