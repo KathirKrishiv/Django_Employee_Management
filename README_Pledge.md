@@ -51,13 +51,13 @@ Retrieves and prepares BSE pledge data.
 1. Accepts **ISIN** and **Target Company Name**.
 2. Filters `bse_pledge` using the available input.
 3. Retrieves pledge, promoter holding, encumbrance, and event details.
-4. Maps database fields to API response fields.
-5. Converts empty values to `"Null"`.
-6. Validates the ISIN against `bse_new_security_list`.
+4. Validates the ISIN against `bse_new_security_list`.
+5. Maps database fields to API response fields.
+6. Converts empty values to `"Null"`.
 7. Returns the mapped data if a record is found.
 8. Returns `"No Record Found"` if no data is available.
 9. Returns `"Null"` values when an exception occurs.
-10. Converts the BSE event date to `YYYY-MM-DD` format.
+10. The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD`.
 
 
 #### BSE Source
@@ -82,7 +82,6 @@ The `bse_pledge` table provides the following source fields:
 | `depe_date_of_creation` | `dateOfEventCreationReleaseInvocationOnEncumbrance` |
 | `depe_name_of_entity` | `nameOfEntityInWhoseFavourSharesEncumbered` |
 
-The BSE event date is converted from `DD/MM/YYYY` to `YYYY-MM-DD`.
 
 ### NSE Pledge Data
 
