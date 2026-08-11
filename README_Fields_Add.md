@@ -444,7 +444,7 @@ Cash flow information is retrieved in the following priority:
   2. ace_financial_cf
 ```
 
-###### Cash Flow Field Mapping
+###### Cash Flow Field Mapping:
 
 | Cash Flow Field Name                            | API Response Field | `ace_balancesheet_result_cashflow` Mapping Key | `ace_financial_cf` Mapping Key |
 |-------------------------------------------------|---|---|---|
