@@ -444,14 +444,28 @@ Cash flow information is retrieved in the following priority:
   
   2. ace_financial_cf
 ```
-   
-Cash flow values populate:
 
- - Operating Cash Flow
- - Investing Cash Flow
- - Financing Cash Flow
- - Total Cash Flow
- - Exchange Rate Adjustment
+###### Cash Flow Field Mapping
+
+| Field Name                                      | API Response Field | `ace_balancesheet_result_cashflow` Mapping Key | `ace_financial_cf` Mapping Key |
+|-------------------------------------------------|---|---|---|
+| Operating Cash Flow                             | `netCashFromOperationsHalfYearlyActualsCurrentHy` | `Cash_from_Operation` | `cash_from_operation` |
+| Investing Cash Flow                             | `netCashFromInvestingHalfYearlyActualsCurrentHy` | `Cash_from_Investment` | `cash_from_investment` |
+| Financing Cash Flow                             | `netCashFromFinanceHalfYearlyActualsCurrentHy` | `Cash_from_Financing` | `cash_from_financing` |
+| Total Cash Flow Before Exchange Rate Adjustment | `totalCashFlowBeforeEffectOfExchangeRateChanges` | `Net_Cash_inflow_outflow` | `net_cash_inflow_outflow` |
+| Exchange Rate Adjustment                        | `effectOfExchangeRateChanges` | `Effect_foreign_exchange` | `effect_foreign_exchange` |
+| Total Cash Flow After Exchange Rate Adjustment  | `totalCashFlowAfterEffectOfExchangeRateChanges` | Derived: `Net_Cash_inflow_outflow - Effect_foreign_exchange` | Derived: `net_cash_inflow_outflow - effect_foreign_exchange` |
+
+
+| API Response Field | `ace_balancesheet_result_cashflow` Mapping Key | `ace_financial_cf` Mapping Key |
+|---|---|---|
+| `netCashFromOperationsHalfYearlyActualsCurrentHy` | `Cash_from_Operation` | `cash_from_operation` |
+| `netCashFromInvestingHalfYearlyActualsCurrentHy` | `Cash_from_Investment` | `cash_from_investment` |
+| `netCashFromFinanceHalfYearlyActualsCurrentHy` | `Cash_from_Financing` | `cash_from_financing` |
+| `totalCashFlowBeforeEffectOfExchangeRateChanges` | `Net_Cash_inflow_outflow` | `net_cash_inflow_outflow` |
+| `effectOfExchangeRateChanges` | `Effect_foreign_exchange` | `effect_foreign_exchange` |
+| `totalCashFlowAfterEffectOfExchangeRateChanges` | Derived: `Net_Cash_inflow_outflow - Effect_foreign_exchange` | Derived: `net_cash_inflow_outflow - effect_foreign_exchange` |
+
 
 #### Step 5 - Financial Year
 
