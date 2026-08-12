@@ -480,7 +480,7 @@ The latest available Balance Sheet record is selected based on `Date_end` for `a
 | Total Current Liabilities (TCL) | `tclHalfYearEndingActualsCurrentHy` | `Current_laib_prov` | `Total_CL` |
 
 
-#### Step 4 - Retrieve Cash Flow
+#### Step 3 - Retrieve Cash Flow
 
 Cash flow information is retrieved in the following priority:
 
@@ -503,7 +503,7 @@ Cash flow information is retrieved in the following priority:
 | Exchange Rate Adjustment                        | `effectOfExchangeRateChanges` | `Effect_foreign_exchange` | `effect_foreign_exchange` |
 | Total Cash Flow After Exchange Rate Adjustment  | `totalCashFlowAfterEffectOfExchangeRateChanges` | Derived: `Net_Cash_inflow_outflow - Effect_foreign_exchange` | Derived: `net_cash_inflow_outflow - effect_foreign_exchange` |
 
-#### Step 5 - Financial Year
+#### Step 4 - Financial Year
 
 The `financialYear` field is generated using the `nse_financial_year_1()` function.
 
@@ -522,7 +522,7 @@ The function:
     ```
     depending on the company's reporting cycle:
     
-#### Step 6 - Populate FinancialResults
+#### Step 5 - Populate FinancialResults
 
 The API populates all quarterly, YTD, balance sheet, and cash flow fields from the selected latest records.
 
@@ -539,7 +539,7 @@ FinancialResults =
 If only one report exists, only that object is returned.
 
 
-#### Step 7 – Calculate Year-To-Date (YTD) Values
+#### Step 6 – Calculate Year-To-Date (YTD) Values
 
 After the financial data is retrieved and added to the response, the API calls:
 
@@ -563,7 +563,7 @@ The function:
 - The reporting quarter is determined automatically based on the financial year-end and reporting period.
 - If sufficient financial data is not available, the corresponding Quarterly and YTD fields remain `"Null"`.
 
-#### Step 8 - Value Conversion
+#### Step 7 - Value Conversion
 
 Before returning the response:
 
