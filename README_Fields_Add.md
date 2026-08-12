@@ -544,8 +544,6 @@ After the financial data is retrieved and added to the response, the API calls:
 ytd_calculations(fin_code, result)
 ```
 
-This function calculates and populates the **Year-To-Date (YTD)** financial values for the latest available reporting period. The calculation is performed separately for both **Standalone** and **Consolidated** financial reports.
-
 Profit & Loss information is retrieved from:
 
 ```
