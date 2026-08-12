@@ -432,12 +432,15 @@ Filter:
 If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet Result Balance Sheet data.
 
 Balance Sheet information is retrieved in the following priority:
+```
 
   1. `ace_balancesheet_result_balancesheet`
   
   If unavailable,
   
   2. `capitaline_new_download`
+
+```
 
 For `capitaline_new_download`, `CapitalineCode` is retrieved using the following priority:
 
