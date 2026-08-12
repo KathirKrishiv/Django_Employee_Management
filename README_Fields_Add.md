@@ -401,7 +401,7 @@ ace_balancesheet_result_balancesheet
 
 Sort by Date_End (Descending) and select latest record.
 
-#### Step 3 - Capitaline Fallback
+Capitaline Fallback:
 
 If NSE financial data is unavailable (`nse_flag = "False"`):
 
@@ -430,6 +430,54 @@ Filter:
 - Select the latest record.
 
 If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet Result Balance Sheet data.
+
+Balance Sheet information is retrieved in the following priority:
+
+  1. `ace_balancesheet_result_balancesheet`
+  
+  If unavailable,
+  
+  2. `capitaline_new_download`
+
+For `capitaline_new_download`, `CapitalineCode` is retrieved using the following priority:
+
+  1. `FINCODE`
+  2. `SCRIPCODE`
+  3. `ISIN`
+
+The latest available Balance Sheet record is selected based on `Date_end` for `ace_balancesheet_result_balancesheet` and `YearEnd` for `capitaline_new_download`.
+
+###### Balance Sheet Field Mapping:
+
+| Balance Sheet Field Name | API Response Field | `ace_balancesheet_result_balancesheet` Mapping Key | `capitaline_new_download` Mapping Key |
+|---|---|---|---|
+| Share Capital | `shareCapitalHalfYearEndingActualsCurrentHy` | `Share_capital` | `ShareCapital` |
+| Reserves and Surplus | `reservesAndSurplusHalfYearEndingActualsCurrentHy` | `Other_Equity_Reserve` | `ReservesAndSurplus` |
+| Pending Allotment | `pendingAllotmentHalfYearEndingActualsCurrentHy` | `Shares_application_money` | `ShareApplicationMoneyPendingAllotment` |
+| Long-Term Borrowings | `longTermBorrowingsHalfYearEndingActualsCurrentHy` | `Total_debts` | `NCL_Long_Term_Borrowings` |
+| Deferred Tax Liabilities | `deferredTaxLiabilitiesHalfYearEndingActualsCurrentHy` | `Deffered_tax_liab_Net` | `NCL_Deferred_Tax_Liabilities_Net` |
+| Long-Term Provision | `longTermProvisionHalfYearEndingActualsCurrentHy` | `LT_Provisions` | `NCL_Long_Term_Provisions` |
+| Total Non-Current Liabilities | `totalNonCurrentLiabilitiesHalfYearEndingActualsCurrentHy` | `Total_Non_Current_Liab` | `Total_NCL` |
+| Short-Term Borrowings | `shortTermBorrowingsHalfYearEndingActualsCurrentHy` | `ST_Borrowings` | `CL_ShortTermBorrowings` |
+| Trade Payables | `tradePayablesHalfYearEndingActualsCurrentHy` | `ST_TradePayables` | `CL_TradePayables` |
+| Short-Term Provision | `shortTermProvisionHalfYearEndingActualsCurrentHy` | `Provisions` | `CL_ShortTermProvisions` |
+| Subtotal Current Liabilities | `subtotalCurrentLiabilitiesHalfYearEndingActualsCurrentHy` | `Current_laib_prov` | `Total_CL` |
+| Fixed Assets | `fixedAssetsHalfYearEndingActualsCurrentHy` | `Net_block` | `NCA_FixedAssetsInclCWP` |
+| Non-Current Investments | `noncurrentInvestmentsHalfYearEndingActualsCurrentHy` | Derived: `Investments_NF + Invest_Sub_JV_Associates` | `NCA_NonCurrentInvestments` |
+| Long-Term Advances | `longtermadvancesHalfYearEndingActualsCurrentHy` | `LT_OtherFin_Assets` | `NCA_LongTermLoansAndAdvances` |
+| Trade Receivables More Than 6 Months | `tradeReceivablesMoreThan6MonthsHalfYearEndingActualsCurrentHy` | `Debtors` | `TCA_TradeReceivables` |
+| Subtotal Non-Current Assets | `subtotalNonCurrentAssetsHalfYearEndingActualsCurrentHy` | `Total_Non_Current_Assets` | `Total_NCA` |
+| Current Investments | `currentInvestmentsHalfYearEndingActualsCurrentHy` | `Current_Investments` | `TCA_CurrentInvestments` |
+| Inventories | `inventoriesHalfYearEndingActualsCurrentHy` | `Inventory` | `TCA_Inventories` |
+| Trade Receivables | `tradeReceivablesHalfYearEndingActualsCurrentHy` | `Debtors` | `TCA_TradeReceivables` |
+| Cash | `cashHalfYearEndingActualsCurrentHy` | `Cash_bank` | `TCA_CashAndCashEquivalents` |
+| Short-Term Advances | `shortTermAdvancesHalfYearEndingActualsCurrentHy` | `Loans_adv` | `TCA_ShortTermLoansAndAdvances` |
+| Subtotal Current Assets | `subtotalCurrentAssetsHalfYearEndingActualsCurrentHy` | `Currant_assets` | `TotalCurrentAssets` |
+| Intangible Assets | `intangibleAssetsHalfYearEndingActualsCurrentHy` | Derived: `Other_Intangible_Assets + Goodwill` | `NCA_IntangibleAssets` |
+| Deferred Tax Assets | `deferredTaxAssetsHalfYearEndingActualsCurrentHy` | `Def_Tax_assets` | `NCA_DeferredTaxAssetNet` |
+| Inventory | `inventoryHalfYearEndingActualsCurrentHy` | `Inventory` | `Inventory` |
+| Total Current Assets (TCA) | `tcaHalfYearEndingActualsCurrentHy` | `Currant_assets` | `TotalCurrentAssets` |
+| Total Current Liabilities (TCL) | `tclHalfYearEndingActualsCurrentHy` | `Current_laib_prov` | `Total_CL` |
 
 
 #### Step 4 - Retrieve Cash Flow
