@@ -550,8 +550,13 @@ Profit & Loss information is retrieved from:
 
 ```
   1. `ace_balancesheet_results_ind_as_format_data_merged_ace_financial`
-```
 
+Filter:
+
+1. Fincode
+2. nature
+3. Date_End
+```
 The latest available `Date_End` is selected separately for Standalone (`S`) and Consolidated (`C`) reports.
 
 Profit & Loss values are populated based on `Result_Type`:
