@@ -392,6 +392,17 @@ If NSE financial data is available (`nse_flag = "True"`):
 
 - Retrieve the latest Balance Sheet data from `ace_balancesheet_result_balancesheet`.
 
+Balance Sheet information is retrieved in the following priority:
+```
+
+  1. `ace_balancesheet_result_balancesheet`
+  
+  If unavailable,
+  
+  2. `capitaline_new_download`
+
+```
+
 Lookup:
 ace_balancesheet_result_balancesheet
 
@@ -430,23 +441,6 @@ Filter:
 - Select the latest record.
 
 If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet Result Balance Sheet data.
-
-Balance Sheet information is retrieved in the following priority:
-```
-
-  1. `ace_balancesheet_result_balancesheet`
-  
-  If unavailable,
-  
-  2. `capitaline_new_download`
-
-```
-
-For `capitaline_new_download`, `CapitalineCode` is retrieved using the following priority:
-
-  1. `FINCODE`
-  2. `SCRIPCODE`
-  3. `ISIN`
 
 The latest available Balance Sheet record is selected based on `Date_end` for `ace_balancesheet_result_balancesheet` and `YearEnd` for `capitaline_new_download`.
 
