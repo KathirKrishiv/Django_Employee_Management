@@ -546,6 +546,39 @@ ytd_calculations(fin_code, result)
 
 This function calculates and populates the **Year-To-Date (YTD)** financial values for the latest available reporting period. The calculation is performed separately for both **Standalone** and **Consolidated** financial reports.
 
+Profit & Loss information is retrieved from:
+
+  1. `ace_balancesheet_results_ind_as_format_data_merged_ace_financial`
+
+The latest available `Date_End` is selected separately for Standalone (`S`) and Consolidated (`C`) reports.
+
+Profit & Loss values are populated based on `Result_Type`:
+
+  - `Q` - Quarterly
+  - `H` - Half-Yearly
+  - `A` - Annual
+
+YTD values are calculated based on the available result type and reporting quarter. For Q2, Q3, and Q4, the current quarter values are combined with the previous quarter, half-year, or annual values as applicable. :contentReference[oaicite:2]{index=2}
+
+###### Profit & Loss Field Mapping:
+
+| Profit & Loss Field Name | API Response Field | `ace_balancesheet_results_ind_as_format_data_merged_ace_financial` Mapping Key |
+|---|---|---|
+| Net Sales - Quarterly | `netSalesQuarterlyActualsCurrentQt` | `Net_Sales` |
+| Net Sales - YTD | `netSalesYtdActualsCurrentQt` | `Net_Sales` |
+| Other Income - Quarterly | `otherIncomeQuarterlyActualsCurrentQt` | `Other_Income` |
+| Other Income - YTD | `otherIncomeYtdActualsCurrentQt` | `Other_Income` |
+| EPS - Quarterly | `epsQuarterlyActualsCurrentQt` | `eps_basic` |
+| EPS - YTD | `epsYtdActualsCurrentQt` | `eps_basic` |
+| PAT - Quarterly | `patQuarterlyActualsCurrentQt` | Derived: `Pbt - Tax + Discontinued_Op + Shares_Associate` |
+| PAT - YTD | `patYtdActualsCurrentQt` | Derived: `Pbt - Tax + Discontinued_Op + Shares_Associate` |
+| Tax - Quarterly | `taxQuarterlyActualsCurrentQt` | `Tax` |
+| Tax - YTD | `taxYtdActualsCurrentQt` | `Tax` |
+| Interest - Quarterly | `interestQuarterlyActualsCurrentQt` | `Interest` |
+| Interest - YTD | `interestYtdActualsCurrentQt` | `Interest` |
+| Depreciation & Amortisation - Quarterly | `depreciationAmortisationQuarterlyActualsCurrentQt` | `Depreciation` |
+| Depreciation & Amortisation - YTD | `depreciationAmortisationYtdActualsCurrentQt` | `Depreciation` |
+
 The function:
 - Retrieves the latest financial year-end and reporting period using the company's **FINCODE**.
 - Identifies the current reporting quarter (Q1, Q2, Q3, or Q4).
