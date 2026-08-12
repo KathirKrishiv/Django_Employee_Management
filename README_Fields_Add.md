@@ -440,7 +440,7 @@ Filter:
 - Sort by YearEnd descending.
 - Select the latest record.
 
-If CapitalineCode is unavailable, the API falls back to ACE Balance Sheet Result Balance Sheet data.
+If CapitalineCode is unavailable, the API falls back to Ace Balance Sheet Result Balance Sheet data.
 
 The latest available Balance Sheet record is selected based on `Date_end` for `ace_balancesheet_result_balancesheet` and `YearEnd` for `capitaline_new_download`.
 
