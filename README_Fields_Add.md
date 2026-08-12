@@ -536,7 +536,7 @@ FinancialResults =
 If only one report exists, only that object is returned.
 
 
-#### Step 6 – Calculate Year-To-Date (YTD) Values
+#### Step 6 – Retrieve Profit & Loss
 
 After the financial data is retrieved and added to the response, the API calls:
 
@@ -548,7 +548,9 @@ This function calculates and populates the **Year-To-Date (YTD)** financial valu
 
 Profit & Loss information is retrieved from:
 
+```
   1. `ace_balancesheet_results_ind_as_format_data_merged_ace_financial`
+```
 
 The latest available `Date_End` is selected separately for Standalone (`S`) and Consolidated (`C`) reports.
 
@@ -558,7 +560,12 @@ Profit & Loss values are populated based on `Result_Type`:
   - `H` - Half-Yearly
   - `A` - Annual
 
-YTD values are calculated based on the available result type and reporting quarter. For Q2, Q3, and Q4, the current quarter values are combined with the previous quarter, half-year, or annual values as applicable. :contentReference[oaicite:2]{index=2}
+The YTD function:
+- Retrieves the latest financial year-end and reporting period using the company's **FINCODE**.
+- Identifies the current reporting quarter (Q1, Q2, Q3, or Q4).
+- Fetches the required financial records for the latest reporting period.
+- Calculates both **Quarterly** and **YTD** values based on the available financial result type (Quarterly, Half-Yearly, or Annual).
+- Updates the response with the calculated values.
 
 ###### Profit & Loss Field Mapping:
 
@@ -579,12 +586,6 @@ YTD values are calculated based on the available result type and reporting quart
 | Depreciation & Amortisation - Quarterly | `depreciationAmortisationQuarterlyActualsCurrentQt` | `Depreciation` |
 | Depreciation & Amortisation - YTD | `depreciationAmortisationYtdActualsCurrentQt` | `Depreciation` |
 
-The function:
-- Retrieves the latest financial year-end and reporting period using the company's **FINCODE**.
-- Identifies the current reporting quarter (Q1, Q2, Q3, or Q4).
-- Fetches the required financial records for the latest reporting period.
-- Calculates both **Quarterly** and **YTD** values based on the available financial result type (Quarterly, Half-Yearly, or Annual).
-- Updates the response with the calculated values.
 
 ##### Notes
 
