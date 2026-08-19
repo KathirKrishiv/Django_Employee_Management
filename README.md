@@ -31,6 +31,20 @@ The following fields are returned under the `result.data` object in Marketdata A
 | Returned Column | `bse_sublisting` |
 | Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
 
+## `bseStatus`
+
+| Property | Value |
+|----------|-------|
+| Type | String |
+| Description | Current BSE listing status of the security. |
+| Source Table | `ace_company_master` |
+| Lookup Column | `scripcode` |
+| Returned Column | `bse_sublisting` |
+| Fallback Source Table | `bse_security_list_2_9_24` |
+| Fallback Lookup Column | `security_code` |
+| Fallback Returned Column | `Status` |
+| Fallback Condition | When `scripCode` is `"Null"`, the API retrieves the `scripCode` using `get_52week_data1()` and fetches the BSE status from the fallback table. |
+| Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
 ---
 
 ## `nseStatus`
