@@ -25,17 +25,6 @@ The following fields are returned under the `result.data` object in Marketdata A
 | Property | Value |
 |----------|-------|
 | Type | String |
-| Description |  Current BSE listing status of the security. |
-| Source Table | `ace_company_master` |
-| Lookup Column | `scripcode` |
-| Returned Column | `bse_sublisting` |
-| Possible Values | `Active`, `Suspended`, `Delisted`, `Null` |
-
-## `bseStatus`
-
-| Property | Value |
-|----------|-------|
-| Type | String |
 | Description | Current BSE listing status of the security. |
 | Source Table | `ace_company_master` |
 | Lookup Column | `scripcode` |
@@ -479,14 +468,14 @@ The latest available Balance Sheet record is selected based on `Date_end` for `a
 | Trade Receivables More Than 6 Months | `tradeReceivablesMoreThan6MonthsHalfYearEndingActualsCurrentHy` | `Debtors` | `TCA_TradeReceivables` |
 | Subtotal Non-Current Assets | `subtotalNonCurrentAssetsHalfYearEndingActualsCurrentHy` | `Total_Non_Current_Assets` | `Total_NCA` |
 | Current Investments | `currentInvestmentsHalfYearEndingActualsCurrentHy` | `Current_Investments` | `TCA_CurrentInvestments` |
-| Inventories | `inventoriesHalfYearEndingActualsCurrentHy` | `Inventory` | `TCA_Inventories` |
+| Inventories | `inventoriesHalfYearEndingActualsCurrentHy` | `Inventory / Current_Investments` | `Inventory / TCA_Inventories` |
 | Trade Receivables | `tradeReceivablesHalfYearEndingActualsCurrentHy` | `Debtors` | `TCA_TradeReceivables` |
 | Cash | `cashHalfYearEndingActualsCurrentHy` | `Cash_bank` | `TCA_CashAndCashEquivalents` |
 | Short-Term Advances | `shortTermAdvancesHalfYearEndingActualsCurrentHy` | `Loans_adv` | `TCA_ShortTermLoansAndAdvances` |
 | Subtotal Current Assets | `subtotalCurrentAssetsHalfYearEndingActualsCurrentHy` | `Currant_assets` | `TotalCurrentAssets` |
 | Intangible Assets | `intangibleAssetsHalfYearEndingActualsCurrentHy` | Derived: `Other_Intangible_Assets + Goodwill` | `NCA_IntangibleAssets` |
 | Deferred Tax Assets | `deferredTaxAssetsHalfYearEndingActualsCurrentHy` | `Def_Tax_assets` | `NCA_DeferredTaxAssetNet` |
-| Inventory | `inventoryHalfYearEndingActualsCurrentHy` | `Inventory` | `Inventory` |
+| Inventory | `inventoryHalfYearEndingActualsCurrentHy` | `Inventory` | NA |
 | Total Current Assets (TCA) | `tcaHalfYearEndingActualsCurrentHy` | `Currant_assets` | `TotalCurrentAssets` |
 | Total Current Liabilities (TCL) | `tclHalfYearEndingActualsCurrentHy` | `Current_laib_prov` | `Total_CL` |
 
